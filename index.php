@@ -16,12 +16,15 @@
     <div class="dropdown">
         <a href="alta_factura.php" target="pages" class="dropbtn">Nueva factura</a>
      </div>
-
+    <div class="dropdown">
+        <a href="alta_orden.php" target="pages" class="dropbtn">Nueva orden de compra</a>
+     </div>
      <div class="dropdown">
          <button class="dropbtn">Consultas</button>
      <div id="consultas" class="dropdown-content">
         <a href="consulta.php" target="pages">Consulta manual</a>
         <a href="consulta_factura.php" target="pages">Consulta facturas</a>
+        <a href="consulta_ordenes.php" target="pages">Consulta ordenes de compra</a>
      </div>
      </div>
 
