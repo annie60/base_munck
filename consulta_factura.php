@@ -27,6 +27,12 @@ include_once 'consulta.inc.php';
             </form>
         </div>
         <?php
+        if (!empty($error_msg)) {
+            echo $error_msg;
+        }elseif (!empty($correct_msg)) {
+            echo $correct_msg;
+        }?>
+        <?php
         if($indicebasicos==0):?>
             <p class="error">No hay ordenes que mostrar.</p>
         <?php else:
@@ -35,6 +41,12 @@ include_once 'consulta.inc.php';
         <div class="left" style="border: 1px solid black;">
             <div class="center">
                 <h2>Datos de la factura</h2>
+                <form method="post" action="consulta_factura.php">
+                <input type="hidden" value="<?=$basicos[$indiceFactura][0]?>" name="id_elimina"/>
+                    <span style="vertical-align:top;">
+                            <input type="submit" class="button-small-warn" value="Eliminar factura" name='submit'/>
+                    </span>
+                </form>
             </div>
             <div class="left">
             <h3>Datos basicos</h3>    
@@ -100,10 +112,6 @@ include_once 'consulta.inc.php';
         
             <p><b>Notas:</b> <?=$basicos[$indiceFactura][9]?></p>
             </div>
-            
-                    <span style="vertical-align:top;">
-                            <input type="submit" class="button-small" value="Eliminar factura" name='submit'/>
-                    </span>
             
         </div>
         <?php endfor;

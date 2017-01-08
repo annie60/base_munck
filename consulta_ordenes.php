@@ -34,6 +34,12 @@ include_once 'consulta.inc.php';
         <div class="left" style="border: 1px solid black;">
             <div class="center">
                 <h2>Datos de la orden de compra</h2>
+                <form method="post" action="consulta_ordenes.php">
+                <input type="hidden" value="<?=$basicos[$indiceFactura][0]?>" name="id_elimina"/>
+                    <span style="vertical-align:top;">
+                            <input type="submit" class="button-small-warn" value="Eliminar orden compra" name='submit'/>
+                    </span>
+                </form>
             </div>
             <div class="left">
             <h3>Datos basicos</h3>    

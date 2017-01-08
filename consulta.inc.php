@@ -9,6 +9,8 @@ include_once '_includes/db_connect.php';
         $valorRefaccion="";
         $valorServicio="";
         $valorNumero="";
+        $correct_msg="";
+        $error_msg="";
         if( !empty($_POST['cliente'])){
             $valorCliente=$_POST['cliente'];
             $condicion.= " AND cliente_nombre LIKE '%".$valorCliente."%'";
@@ -73,6 +75,14 @@ include_once '_includes/db_connect.php';
                 $condicion=rtrim($condicion,",");
                 $condicion.=")";
                 $stmtFiltrado->close();
+        }
+        if(!empty($_POST['id_elimina'])){
+            $stmt_delete=$mysqli->prepare("DELETE FROM ".$tabla." WHERE ".$nombreCampo."_pkey=".$_POST['id_elimina']);
+            if(!$stmt_delete->execute()){
+                $error_msg.="<p class='error'>Error al eliminar</p>";
+            }else{
+                $correct_msg.="<p class='correct'>Eliminacion completada</p>";
+            }
         }
         //Busca los datos basicos de todas las facturas
         $stmt=$mysqli->prepare("SELECT ".$nombreCampo."_pkey,".$nombreCampo."_total,DATE_FORMAT(".$nombreCampo."_fecha,'%d/%m/%Y'),cliente_nombre,

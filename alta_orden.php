@@ -46,7 +46,7 @@ include_once 'new.inc.php';
                 <label>No. orden</label>
                 <input type="number" required name="no_orden"/><br>
             <label>Cliente</label>
-            <select name="cliente1">
+            <select name="cliente1" onchange="datosCliente(this.value)>
             <?php
             
             for($i=0;$i<=$index;$i++){
@@ -55,6 +55,14 @@ include_once 'new.inc.php';
             }
             ?>
             </select><br><br>
+            <?php
+            for($i=0;$i<=$index;$i++):?>
+                    
+                <div id="<?=$clientes[$i][0]?>" style="display:none;"><?=$clientes[$i][2]?> , <?=$clientes[$i][3]?></div>
+                    
+            <?php
+            endfor;
+            ?>
             <h4>Refacciones</h4>
             <div id='refaccion'>
                 

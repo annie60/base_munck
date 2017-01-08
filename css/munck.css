@@ -143,6 +143,18 @@ a{
     background-color: #3498DB;
     color: white;
 }
+.button-small-warn {
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    background-color:white;
+    border-color:red;
+    font-size:18px;
+    padding: 10px 30px;
+}
+.button-small-warn:hover {
+    background-color: red;
+    color: white;
+}
 .button-small {
     -webkit-transition-duration: 0.4s; 
     transition-duration: 0.4s;
