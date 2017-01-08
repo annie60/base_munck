@@ -19,9 +19,9 @@ include_once '_includes/db_connect.php';
             $newformat = date('Y-d-m',$time);
             $tomorrow = date('Y-d-m',strtotime($_POST['fecha']. "+1 days"));
             if(empty($condicion)){
-                $condicion=" WHERE factura_fecha BETWEEN '".$newformat."' AND '".$tomorrow."'";
+                $condicion=" WHERE ".$nombreCampo."_fecha BETWEEN '".$newformat."' AND '".$tomorrow."'";
             }else{
-                $condicion.= " AND factura_fecha BETWEEN '".$newformat."' AND '".$tomorrow."'";
+                $condicion.= " AND ".$nombreCampo."_fecha BETWEEN '".$newformat."' AND '".$tomorrow."'";
             }
         }
         if( !empty($_POST['refaccion'])){
@@ -31,12 +31,12 @@ include_once '_includes/db_connect.php';
                 $condicion.=" AND";
             }
             $valorRefaccion=$_POST['refaccion'];
-                $stmtFiltrado =  $mysqli->prepare("SELECT factura_fkey FROM Factura_por_refaccion INNER JOIN Refacciones ON refaccion_fkey
+                $stmtFiltrado =  $mysqli->prepare("SELECT ".$nombreCampo."_fkey FROM ".$relacion."_por_refaccion INNER JOIN Refacciones ON refaccion_fkey
                 = refaccion_codigo WHERE refaccion_codigo LIKE '%".$_POST['refaccion']."%'");
                 
                 $stmtFiltrado->execute();
                 $stmtFiltrado->bind_result($idFactura);
-                $condicion.=" factura_pkey IN (";
+                $condicion.=" ".$nombreCampo."_pkey IN (";
                 while($stmtFiltrado->fetch()){
                     $condicion.=$idFactura.",";
                 }
@@ -51,12 +51,12 @@ include_once '_includes/db_connect.php';
                 $condicion.=" AND";
             }
             $valorServicio=$_POST['servicio'];
-                $stmtFiltrado =  $mysqli->prepare("SELECT factura_fkey FROM Factura_por_servicio INNER JOIN Servicios ON servicio_fkey
+                $stmtFiltrado =  $mysqli->prepare("SELECT ".$nombreCampo."_fkey FROM ".$relacion."_por_servicio INNER JOIN Servicios ON servicio_fkey
                 = servicio_codigo WHERE servicio_codigo LIKE '%".$_POST['servicio']."%'");
                 
                 $stmtFiltrado->execute();
                 $stmtFiltrado->bind_result($idFactura);
-                $condicion.=" factura_pkey IN (";
+                $condicion.=" ".$nombreCampo."_pkey IN (";
                 while($stmtFiltrado->fetch()){
                     $condicion.=$idFactura.",";
                 }
@@ -65,9 +65,9 @@ include_once '_includes/db_connect.php';
                 $stmtFiltrado->close();
         }
         //Busca los datos basicos de todas las facturas
-        $stmt=$mysqli->prepare("SELECT factura_pkey,factura_total,DATE_FORMAT(factura_fecha,'%d/%m/%Y'),cliente_nombre,
-        cliente_razon,cliente_domicilio,cliente_contacto,cliente_telefono,cliente_correo,factura_notas
-        FROM Facturas INNER JOIN Clientes ON cliente_fkey = cliente_pkey".$condicion." ORDER BY factura_fecha");
+        $stmt=$mysqli->prepare("SELECT ".$nombreCampo."_pkey,".$nombreCampo."_total,DATE_FORMAT(".$nombreCampo."_fecha,'%d/%m/%Y'),cliente_nombre,
+        cliente_razon,cliente_domicilio,cliente_contacto,cliente_telefono,cliente_correo,".$nombreCampo."_notas
+        FROM ".$tabla." INNER JOIN Clientes ON cliente_fkey = cliente_pkey".$condicion." ORDER BY ".$nombreCampo."_fecha");
         $basicos=array(array());
         $indicebasicos=0;
         $stmt->execute();  

@@ -1,9 +1,8 @@
 <?php
-$tabla="Facturas";
-$nombreCampo="factura";
-$relacion="Factura";
+$tabla="Ordenes_compra";
+$nombreCampo="orden";
+$relacion="Orden";
 include_once 'consulta.inc.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +13,7 @@ include_once 'consulta.inc.php';
         <span class="close" id='filtro' onclick="mostrar('busqueda')">Filtrar v</span>
         <div id="busqueda" class="center" style="display:none;">
             <h3>Buscar por</h3>
-            <form action="consulta_factura.php" method="post">
+            <form action="consulta_ordenes.php" method="post">
                 <div class="left"><label>No. de refacci&oacute;n</label>
                 <input type="text" name="refaccion" value="<?=$valorRefaccion ?>"/></div>
                 <div class="left"><label>Codigo de servicio</label>
@@ -29,13 +28,13 @@ include_once 'consulta.inc.php';
         ?>
         <div class="left" style="border: 1px solid black;">
             <div class="center">
-                <h2>Datos de la factura</h2>
+                <h2>Datos de la orden de compra</h2>
             </div>
             <div class="left">
             <h3>Datos basicos</h3>    
         
-            <p><b>Fecha de la factura:</b> <?=$basicos[$indiceFactura][2]?></p>
-            <p><b>Total de la factura:</b> $<?=$basicos[$indiceFactura][1]?></p>
+            <p><b>Fecha de la orden de compra:</b> <?=$basicos[$indiceFactura][2]?></p>
+            <p><b>Total de la orden de compra:</b> $<?=$basicos[$indiceFactura][1]?></p>
             </div>
             <div class="left">
                 <h3>Datos del cliente</h3>
