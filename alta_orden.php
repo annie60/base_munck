@@ -37,14 +37,14 @@ include_once 'new.inc.php';
             </div>
 
         </div><br><br>
-            <form action="alta_factura.php" 
+            <form action="alta_orden.php" 
                 method="post"
                 name="new_form">
             
             <div class="left">
-                <h3>Nueva factura</h3>
+                <h3>Nueva orden de compra</h3>
             <label>Cliente</label>
-            <select name="cliente">
+            <select name="cliente1">
             <?php
             
             for($i=0;$i<=$index;$i++){

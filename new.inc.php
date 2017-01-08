@@ -47,9 +47,10 @@ if(isset($_POST['descripcion'])){
   global $mysqli;
   $cliente= $_POST['cliente'];
   $total =$_POST['granTotal'];
-  if ($insert_stmt = $mysqli->prepare("INSERT INTO Facturas(cliente_fkey,factura_total) 
-    VALUES (?,?)")) {
-      $insert_stmt->bind_param('ii',$cliente,$total);
+  $notas = isset($_POST['notas'])? $_POST['notas']:"";
+  if ($insert_stmt = $mysqli->prepare("INSERT INTO Facturas(cliente_fkey,factura_total,factura_notas) 
+    VALUES (?,?,?)")) {
+      $insert_stmt->bind_param('iis',$cliente,$total,$notas);
                 // Execute the prepared query.
                 if (!$insert_stmt->execute()) {
                    
@@ -136,5 +137,70 @@ if(isset($_POST['descripcion'])){
     }else{
                 $error_msg.="<p class='error'>Error en la base de datos</p>";
     }
+}else if(isset($_POST['cliente1'])){
+  global $mysqli;
+  $cliente= $_POST['cliente1'];
+  $total =$_POST['granTotal'];
+   $notas = isset($_POST['notas'])? $_POST['notas']:"";
+  if ($insert_stmt = $mysqli->prepare("INSERT INTO Ordenes_compra(cliente_fkey,orden_total,orden_notas) 
+    VALUES (?,?,?)")) {
+      $insert_stmt->bind_param('iis',$cliente,$total,$notas);
+                // Execute the prepared query.
+                if (!$insert_stmt->execute()) {
+                   
+                   $error_msg.="<p class='error'>Error al crear nota/p>";
+                }
+                $last_id= $insert_stmt->insert_id;
+                $correct_msg.="<p class='correct'>Exito! Se creo con exito</p>";
+     }else{
+                $error_msg.="<p class='error'>Error en la base de datos</p>";
+  }
+  //Si no hubo error al capturar la orden proceder con el identificador de dicha orden
+  if(empty($error_msg)){
+    if(isset($_POST['refacciones'])){
+      $refacciones = $_POST['refacciones'];
+      $cantidadesRefacciones = $_POST['cantidades'];
+      //por cada refaccion captura inserta una relacion en la orden
+      foreach( $refacciones as $key => $n){
+        if ($insert_stmt = $mysqli->prepare("INSERT INTO Orden_por_refaccion(orden_fkey,refaccion_fkey,refaccion_cantidad) VALUES (?,?, ?)")) {
+          $insert_stmt->bind_param('isi',$last_id,$refacciones[$key],$cantidadesRefacciones[$key]);
+                // Execute the prepared query.
+                if (!$insert_stmt->execute()) {
+                   
+                   $error_msg.="<p class='error'>Error al dar de alta la refacci&oacute;n/p>";
+                
+                  break;
+                }
+
+        }else{
+                $error_msg.="<p class='error'>Error al dar de alta la refacci&oacute;n</p>";
+        
+            break;
+        }
+      }
+    }
+    if(isset($_POST['servicios'])){
+      $servicios = $_POST['servicios'];
+      $cantidadesServicios = $_POST['cantidades2'];
+      //por cada servicio captura inserta una relacion hacia la orden
+      foreach( $servicios as $key => $n){
+        if ($insert_stmt = $mysqli->prepare("INSERT INTO Orden_por_servicio(orden_fkey,servicio_fkey,servicio_cantidad) VALUES (?,?, ?)")) {
+          $insert_stmt->bind_param('isi',$last_id,$servicios[$key],$cantidadesServicios[$key]);
+                // Execute the prepared query.
+                if (!$insert_stmt->execute()) {
+                   
+                   $error_msg.="<p class='error'>Error al dar de alta el servicio</p>";
+                
+                  break;
+                }
+         }else{
+                $error_msg.="<p class='error'>Error en la base de datos</p>";
+        
+            break;
+        }
+      }
+    }
+
+  }
 }
 ?>
