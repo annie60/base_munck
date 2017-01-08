@@ -287,3 +287,12 @@
             
 
         }
+        function datosCliente(id){
+            var elemento =document.getElementById("anterior");
+            if(elemento.value !=""){
+                var elementoBorrar = document.getElementById(elemento.value);
+                elementoBorrar.style.display="none";
+            }
+            elemento.value=id;
+            mostrar(id);
+        }

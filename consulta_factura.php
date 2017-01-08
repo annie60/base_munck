@@ -25,6 +25,9 @@ include_once 'consulta.inc.php';
             </form>
         </div>
         <?php
+        if($indicebasicos==0):?>
+            <p class="error">No hay ordenes que mostrar.</p>
+        <?php else:
         for($indiceFactura=0;$indiceFactura<$indicebasicos;$indiceFactura++):
         ?>
         <div class="left" style="border: 1px solid black;">
@@ -96,7 +99,9 @@ include_once 'consulta.inc.php';
             <p><b>Notas:</b> <?=$basicos[$indiceFactura][9]?></p>
             </div>
         </div>
-        <?php endfor;?>
+        <?php endfor;
+        endif;
+        ?>
 
     </body>
 </html>

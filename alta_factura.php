@@ -15,15 +15,16 @@ include_once 'new.inc.php';
         global $mysqli;
         $clientes= array(array());
         $index=0;
-        $stmt = $mysqli->prepare("SELECT cliente_pkey,cliente_nombre FROM Clientes ORDER BY cliente_nombre");
+        $stmt = $mysqli->prepare("SELECT cliente_pkey,cliente_nombre,cliente_razon,cliente_domicilio FROM Clientes ORDER BY cliente_nombre");
         $stmt->execute();    // Execute the prepared query.
         $stmt->store_result();
-        $stmt->bind_result($cliente_id,$cliente_nombre);
+        $stmt->bind_result($cliente_id,$cliente_nombre,$cliente_razon,$cliente_domicilio);
         while($stmt->fetch()){
                 
             $clientes[$index][0]= $cliente_id;
             $clientes[$index][1]= $cliente_nombre;
-            
+            $clientes[$index][2]=$cliente_razon;
+            $clientes[$index][3]=$cliente_domicilio;
             $index++;
         }
         $index--;
@@ -31,12 +32,7 @@ include_once 'new.inc.php';
         $stmt->close();
         
         ?>
-        <div class="left">
-            <div class="left">
-            
-            </div>
 
-        </div><br><br>
             <form action="alta_factura.php" 
                 method="post"
                 name="new_form">
@@ -44,15 +40,26 @@ include_once 'new.inc.php';
             <div class="left">
                 <h3>Nueva factura</h3>
             <label>Cliente</label>
-            <select name="cliente">
+            <select name="cliente" onchange="datosCliente(this.value)">
             <?php
-            
-            for($i=0;$i<=$index;$i++){
+            for($i=0;$i<=$index;$i++):?>
                     
-                    echo '<option value="'.$clientes[$i][0].'">'.$clientes[$i][1].'</option>';
-            }
+                    <option value="<?=$clientes[$i][0]?>"><?=$clientes[$i][1]?></option>
+                    
+            <?php
+            endfor;
             ?>
-            </select><br><br>
+            </select>
+            <?php
+            for($i=0;$i<=$index;$i++):?>
+                    
+                <div id="<?=$clientes[$i][0]?>" style="display:none;"><?=$clientes[$i][2]?> , <?=$clientes[$i][3]?></div>
+                    
+            <?php
+            endfor;
+            ?>
+            <input type="hidden" value="" id="anterior"/>
+            <br><br>
             <h4>Refacciones</h4>
             <div id='refaccion'>
                 
