@@ -1,0 +1,269 @@
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+ 
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+ 
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+ 
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.pasos{
+    padding:10px;
+}
+.campos{
+    display: none;
+}
+.totales{
+    
+}
+.center {
+    margin: auto;
+    width: 75%;
+    text-align: center;
+    padding: 10px;
+    position:relative;
+}
+.disabled {
+   pointer: none;
+   cursor: default;
+   color:gray;
+}
+.list{
+    padding: 1px;
+    border:none;
+    text-align: left;
+    float:left;
+    display:inline;
+}
+.link-type{
+    vertical-align:top;
+    border:none;
+    cursor:pointer;
+    background-color:transparent;
+    outline:none;
+    color:#ed7723;
+}
+input:required {
+  border-color: red !important;
+}
+input:required + label {
+  color: red;
+}
+.buttom{
+    position:absolute; bottom:0;
+}
+label {
+  display: block;
+}
+input + label {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+
+.center select{
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size:14px;
+  padding: 5px 20px;
+}
+.center a{
+    padding:10px;
+}
+
+body{
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
+  background-color:white;
+}
+.left{
+  text-align:left;
+  padding:10px;
+  float:left;
+  border-radius: 5px;
+}
+
+.link{
+    border: none;
+    background:transparent ;
+    color:#ed7723;
+    cursor: pointer;
+    height:20px;
+    
+}
+.link:focus {outline:0;}
+.right{
+  text-align:right;
+  padding:5px;
+  float: right;
+}
+a{
+    text-decoration: none;
+    color: #ed7723;
+    display: block;
+    padding-top: 5px;
+}
+.button {
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    background-color:white;
+    border-color:#3498DB;
+    font-size:18px;
+    padding: 14px 40px;
+}
+
+.button:hover {
+    background-color: #3498DB;
+    color: white;
+}
+.button-small {
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    background-color:white;
+    border-color:#3498DB;
+    font-size:18px;
+    padding: 10px 30px;
+}
+
+.button-small:hover {
+    background-color: #3498DB;
+    color: white;
+}
+input{
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size:14px;
+  padding: 5px 20px;
+  
+}
+.capitalize {
+    text-transform: capitalize;
+    
+}
+textarea{
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size:14px;
+  padding: 5px 20px;
+  width: 85%; 
+  height: 175px
+}
+.left textarea{
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size:14px;
+  padding: 5px 20px;
+  width: 205px; 
+  height: 55px
+    
+}
+h3{
+    color:#EB984E;
+}
+h4{
+    color:#9A7D0A;
+}
+h2{
+    
+    color:#E67E22;
+}
+.bar{
+    background-color:  #2980B9;
+}
+.error{
+    color: red;
+    font-size:15px;
+    text-align: center;
+    text-decoration: important;
+}
+.correct{
+    color: green;
+    font-size:15px;
+    text-align: center;
+    text-decoration: important;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color:  #2980B9;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+a.dropbtn{
+    background-color:  #2980B9;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #3498DB;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #3498DB}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #3498DB;
+}
+table tr{
+    cursor: pointer;
+    padding: 5px 20px;
+    border: 1px solid black;
+}
