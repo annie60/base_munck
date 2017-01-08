@@ -44,7 +44,7 @@ include_once 'consulta.inc.php';
             </div>
             <div class="left">
             <h3>Datos de la venta</h3>
-           <div class="left">
+            <div class="left">
                 
                 <h4>Refacciones</h4>
                 <?php
@@ -62,8 +62,7 @@ include_once 'consulta.inc.php';
                         <b>Cantidad:</b> <?=$cantidad?></p><br>
                     </div>
                 <?php
-                    endwhile;
-                    $stmtRefaccion->close;?>
+                    endwhile;?>
             </div>
             <div class="left">
                 <h4>Servicios</h4>
@@ -83,10 +82,15 @@ include_once 'consulta.inc.php';
                         </div>
                 <?php
                 endwhile;
-                $stmtServicio->close;
+                
                 ?>
-                </div>
-                </div>
+            </div>
+            </div>
+            <div class="left">
+            <h3>Datos adicionales</h3>    
+        
+            <p><b>Notas:</b> <?=$basicos[$indiceFactura][9]?></p>
+            </div>
         </div>
         <?php endfor;?>
 
