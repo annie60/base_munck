@@ -1,8 +1,10 @@
 <?php
-$tabla="Ordenes_compra";
-$nombreCampo="orden";
-$relacion="Orden";
+$tabla="Facturas";
+$nombreCampo="factura";
+$relacion="Factura";
 include_once 'consulta.inc.php';
+include_once 'update.inc.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -13,8 +15,8 @@ include_once 'consulta.inc.php';
         <span class="close" id='filtro' onclick="mostrar('busqueda')">Filtrar v</span>
         <div id="busqueda" class="center" style="display:none;">
             <h3>Buscar por</h3>
-            <form action="consulta_ordenes.php" method="post">
-                <div class="left"><label>No. de orden</label>
+            <form action="consulta_factura.php" method="post">
+                <div class="left"><label>No. de factura</label>
                 <input type="text" name="numero_of" value="<?=$valorNumero ?>"/></div>
                 <div class="left"><label>No. de refacci&oacute;n</label>
                 <input type="text" name="refaccion" value="<?=$valorRefaccion ?>"/></div>
@@ -27,29 +29,37 @@ include_once 'consulta.inc.php';
         </div>
         <?php
         if($indicebasicos==0):?>
-            <p class="error">No hay ordenes que mostrar.</p>
+            <p class="error">No hay facturas que mostrar.</p>
         <?php else:
         for($indiceFactura=0;$indiceFactura<$indicebasicos;$indiceFactura++):
         ?>
+        <form method="post" action="edita_factura.php">
         <div class="left" style="border: 1px solid black;">
             <div class="center">
-                <h2>Datos de la orden de compra</h2>
+                <h2>Datos de la factura</h2>
             </div>
             <div class="left">
             <h3>Datos basicos</h3>    
-            <p><b>No. orden:</b> <?=$basicos[$indiceFactura][10]?></p>
-            <p><b>Fecha de la orden de compra:</b> <?=$basicos[$indiceFactura][2]?></p>
-            <p><b>Total de la orden de compra:</b> $<?=$basicos[$indiceFactura][1]?></p>
+            <label>No. factura:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>"/>
+            <label>Fecha de la factura:</label><input type="text" value="<?=$basicos[$indiceFactura][2]?>"/>
+            <label>Total de la factura:</label><input type="text" value="$<?=$basicos[$indiceFactura][1]?>"/><br>
+            <img src="/css/img/save.png" height="20" width="20">
+                    <span style="vertical-align:top;">
+                            <input type="submit" class="button-small" value="Guardar cambios" name='submit'/>
+                    </span>
+            </img>
+            </form>
             </div>
+            
             <div class="left">
                 <h3>Datos del cliente</h3>
-
                         <p><b>Nombre de cliente:</b> <?=$basicos[$indiceFactura][3]?><br>
                         <b>Razon social de cliente:</b> <?=$basicos[$indiceFactura][4]?><br>
                         <b>Domicilio:</b><a href="http://maps.google.com/?q=<?=$basicos[$indiceFactura][5]?>" target="_blank"><?=$basicos[$indiceFactura][5]?></a><br>
                         <b>Contacto:</b><a href="mailto:'<?=$basicos[$indiceFactura][8]?>'" target="_blank"> <?=$basicos[$indiceFactura][6]?></a><br>
                         <b>Telefono:</b> <?=$basicos[$indiceFactura][7]?></p>
             </div>
+            
             <div class="left">
             <h3>Datos de la venta</h3>
             <div class="left">
@@ -99,6 +109,11 @@ include_once 'consulta.inc.php';
         
             <p><b>Notas:</b> <?=$basicos[$indiceFactura][9]?></p>
             </div>
+            
+                    <span style="vertical-align:top;">
+                            <input type="submit" class="button-small" value="Eliminar factura" name='submit'/>
+                    </span>
+            
         </div>
         <?php endfor;
         endif;

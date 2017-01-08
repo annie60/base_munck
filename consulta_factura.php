@@ -15,6 +15,8 @@ include_once 'consulta.inc.php';
         <div id="busqueda" class="center" style="display:none;">
             <h3>Buscar por</h3>
             <form action="consulta_factura.php" method="post">
+                <div class="left"><label>No. de factura</label>
+                <input type="text" name="numero_of" value="<?=$valorNumero ?>"/></div>
                 <div class="left"><label>No. de refacci&oacute;n</label>
                 <input type="text" name="refaccion" value="<?=$valorRefaccion ?>"/></div>
                 <div class="left"><label>Codigo de servicio</label>
@@ -36,7 +38,7 @@ include_once 'consulta.inc.php';
             </div>
             <div class="left">
             <h3>Datos basicos</h3>    
-        
+            <p><b>No. factura:</b> <?=$basicos[$indiceFactura][10]?></p>
             <p><b>Fecha de la factura:</b> <?=$basicos[$indiceFactura][2]?></p>
             <p><b>Total de la factura:</b> $<?=$basicos[$indiceFactura][1]?></p>
             </div>
@@ -98,6 +100,11 @@ include_once 'consulta.inc.php';
         
             <p><b>Notas:</b> <?=$basicos[$indiceFactura][9]?></p>
             </div>
+            
+                    <span style="vertical-align:top;">
+                            <input type="submit" class="button-small" value="Eliminar factura" name='submit'/>
+                    </span>
+            
         </div>
         <?php endfor;
         endif;

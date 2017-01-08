@@ -28,6 +28,13 @@
         <a href="vista_servicio.php" target="pages">Consulta servicio</a>
      </div>
      </div>
+     <div class="dropdown">
+         <button class="dropbtn">Ediciones</button>
+     <div id="consultas" class="dropdown-content">
+        <a href="edita_factura.php" target="pages">Edita factura</a>
+
+     </div>
+     </div>
 
 
 </div>

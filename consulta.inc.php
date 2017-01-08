@@ -8,6 +8,7 @@ include_once '_includes/db_connect.php';
         $valorFecha="";
         $valorRefaccion="";
         $valorServicio="";
+        $valorNumero="";
         if( !empty($_POST['cliente'])){
             $valorCliente=$_POST['cliente'];
             $condicion.= " AND cliente_nombre LIKE '%".$valorCliente."%'";
@@ -22,6 +23,15 @@ include_once '_includes/db_connect.php';
                 $condicion=" WHERE ".$nombreCampo."_fecha BETWEEN '".$newformat."' AND '".$tomorrow."'";
             }else{
                 $condicion.= " AND ".$nombreCampo."_fecha BETWEEN '".$newformat."' AND '".$tomorrow."'";
+            }
+        }
+        if(!empty($_POST['numero_of'])){
+            $valorNumero=$_POST['numero_of'];
+
+            if(empty($condicion)){
+                $condicion=" WHERE ".$nombreCampo."_numero =".$valorNumero."";
+            }else{
+                $condicion.= " AND ".$nombreCampo."_numero =".$valorNumero."";
             }
         }
         if( !empty($_POST['refaccion'])){
@@ -66,14 +76,14 @@ include_once '_includes/db_connect.php';
         }
         //Busca los datos basicos de todas las facturas
         $stmt=$mysqli->prepare("SELECT ".$nombreCampo."_pkey,".$nombreCampo."_total,DATE_FORMAT(".$nombreCampo."_fecha,'%d/%m/%Y'),cliente_nombre,
-        cliente_razon,cliente_domicilio,cliente_contacto,cliente_telefono,cliente_correo,".$nombreCampo."_notas
+        cliente_razon,cliente_domicilio,cliente_contacto,cliente_telefono,cliente_correo,".$nombreCampo."_notas,".$nombreCampo."_numero, cliente_pkey 
         FROM ".$tabla." INNER JOIN Clientes ON cliente_fkey = cliente_pkey".$condicion." ORDER BY ".$nombreCampo."_fecha");
         $basicos=array(array());
         $indicebasicos=0;
         $stmt->execute();  
 
         $stmt->bind_result($id,$total,$fecha,$cliente_nombre,$cliente_razon,$cliente_domicilio,$cliente_contacto,$cliente_telefono,
-        $cliente_correo,$factura_notas);
+        $cliente_correo,$factura_notas,$numero,$cliente_id);
         while($stmt->fetch()){ 
             $basicos[$indicebasicos][0]=$id;
             $basicos[$indicebasicos][1]=$total;
@@ -85,7 +95,10 @@ include_once '_includes/db_connect.php';
             $basicos[$indicebasicos][7]=$cliente_telefono;
             $basicos[$indicebasicos][8]=$cliente_correo;
             $basicos[$indicebasicos][9]=$factura_notas;
+            $basicos[$indicebasicos][10]=$numero;
+            $basico[$indicebasicos][11]=$cliente_id;
             $indicebasicos++;
+            
         }
 
 ?>
