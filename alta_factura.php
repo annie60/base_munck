@@ -39,6 +39,8 @@ include_once 'new.inc.php';
             
             <div class="left">
                 <h3>Nueva factura</h3>
+            <label>No. factura</label>
+            <input type="number" required name="no_factura"/><br>
             <label>Cliente</label>
             <select name="cliente" onchange="datosCliente(this.value)">
             <?php

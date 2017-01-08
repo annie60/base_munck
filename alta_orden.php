@@ -43,6 +43,8 @@ include_once 'new.inc.php';
             
             <div class="left">
                 <h3>Nueva orden de compra</h3>
+                <label>No. orden</label>
+                <input type="number" required name="no_orden"/><br>
             <label>Cliente</label>
             <select name="cliente1">
             <?php

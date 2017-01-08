@@ -47,10 +47,11 @@ if(isset($_POST['descripcion'])){
   global $mysqli;
   $cliente= $_POST['cliente'];
   $total =$_POST['granTotal'];
+  $no_factura=$_POST['no_factura'];
   $notas = isset($_POST['notas'])? $_POST['notas']:"";
-  if ($insert_stmt = $mysqli->prepare("INSERT INTO Facturas(cliente_fkey,factura_total,factura_notas) 
-    VALUES (?,?,?)")) {
-      $insert_stmt->bind_param('iis',$cliente,$total,$notas);
+  if ($insert_stmt = $mysqli->prepare("INSERT INTO Facturas(cliente_fkey,factura_total,factura_notas,factura_numero) 
+    VALUES (?,?,?,?)")) {
+      $insert_stmt->bind_param('iisi',$cliente,$total,$notas,$no_factura);
                 // Execute the prepared query.
                 if (!$insert_stmt->execute()) {
                    
@@ -141,10 +142,11 @@ if(isset($_POST['descripcion'])){
   global $mysqli;
   $cliente= $_POST['cliente1'];
   $total =$_POST['granTotal'];
+  $no_orden=$_POST['no_orden'];
    $notas = isset($_POST['notas'])? $_POST['notas']:"";
-  if ($insert_stmt = $mysqli->prepare("INSERT INTO Ordenes_compra(cliente_fkey,orden_total,orden_notas) 
-    VALUES (?,?,?)")) {
-      $insert_stmt->bind_param('iis',$cliente,$total,$notas);
+  if ($insert_stmt = $mysqli->prepare("INSERT INTO Ordenes_compra(cliente_fkey,orden_total,orden_notas,orden_numero) 
+    VALUES (?,?,?,?)")) {
+      $insert_stmt->bind_param('iisi',$cliente,$total,$notas,$no_orden);
                 // Execute the prepared query.
                 if (!$insert_stmt->execute()) {
                    

@@ -25,8 +25,10 @@
         <a href="consulta.php" target="pages">Consulta manual</a>
         <a href="consulta_factura.php" target="pages">Consulta facturas</a>
         <a href="consulta_ordenes.php" target="pages">Consulta ordenes de compra</a>
+        <a href="vista_servicio.php" target="pages">Consulta servicio</a>
      </div>
      </div>
+
 
 </div>
 <iframe name="pages" src="consulta_factura.php" frameborder="0" width="100%" height="80%"></iframe>

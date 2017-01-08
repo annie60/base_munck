@@ -225,7 +225,7 @@
             "<td><input type='text' value='"+identificador+"' /></td>"+
             "<td><input type='text' value='"+nombre+"' /></td>"+
             "<td><input type='number' value='1' name='cantidades[]' onchange='recalcula(this.value,"+precio+",\""+identificador+"\")' /></td>"+
-            "<td><input type='text' class='totales' id='total"+identificador+"' value='"+precio+"' onchange='recalcula(this.value,"+precio+",\""+identificador+"\")' /></td>"+
+            "<td><input type='text' class='totales' id='total"+identificador+"' value='"+precio+"' onchange='calculaTotal()' /></td>"+
             "</tr></table>"+
             "<input type='hidden' name='refacciones[]' value='"+identificador+"'/>";
              var modal = document.getElementById('nuevaRefaccion');
@@ -245,8 +245,8 @@
             "</tr><tr> "+
             "<td><input type='text' value='"+identificador+"' /></td>"+
             "<td><input type='text' value='"+nombre+"' /></td>"+
-            "<td><input type='number' value='1' name='cantidades2[]' onchange='recalcula(this.value,"+precio+",\""+identificador+"\")' /></td>"+
-            "<td><input type='text' class='totales' id='total"+identificador+"' value='"+precio+"' onchange='recalcula(this.value,"+precio+",\""+identificador+"\")' /></td>"+
+            "<td><input type='number' value='1' name='cantidades2[]' onchange='calculaTotal()' /></td>"+
+            "<td><input type='text' class='totales' id='total"+identificador+"' value='"+precio+"' /></td>"+
             "</tr></table>"+
             "<input type='hidden' name='servicios[]' value='"+identificador+"'/>";
             var modal = document.getElementById('nuevoServicio');
