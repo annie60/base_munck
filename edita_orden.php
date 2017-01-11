@@ -1,7 +1,7 @@
 <?php
-$tabla="Facturas";
-$nombreCampo="factura";
-$relacion="Factura";
+$tabla="Ordenes_compra";
+$nombreCampo="orden";
+$relacion="Orden";
 include_once 'update.inc.php';
 include_once 'consulta.inc.php';
 
@@ -16,8 +16,8 @@ include_once 'consulta.inc.php';
         <span class="close" id='filtro' onclick="mostrar('busqueda')">Filtrar v</span>
         <div id="busqueda" class="center" style="display:none;">
             <h3>Buscar por</h3>
-            <form action="edita_factura.php" method="post">
-                <div class="left"><label>No. de factura</label>
+            <form action="edita_orden.php" method="post">
+                <div class="left"><label>No. de orden</label>
                 <input type="text" name="numero_of" value="<?=$valorNumero ?>"/></div>
                 <div class="left"><label>No. de refacci&oacute;n</label>
                 <input type="text" name="refaccion" value="<?=$valorRefaccion ?>"/></div>
@@ -36,33 +36,33 @@ include_once 'consulta.inc.php';
             echo $correct_msg;
         }
         if($indicebasicos==0):?>
-            <p class="error">No hay facturas que mostrar.</p>
+            <p class="error">No hay ordenes que mostrar.</p>
         <?php else:
         for($indiceFactura=0;$indiceFactura<$indicebasicos;$indiceFactura++):
         ?>
         
         <div class="left" style="border: 1px solid black;">
             <div class="center">
-                <h2>Datos de la factura</h2>
+                <h2>Datos de la orden</h2>
                 
                 
                 <div class="right">
-                    <form method="post" action="edita_factura.php">
+                    <form method="post" action="edita_orden.php">
                     <input type="hidden" name="id_elimina" value="<?=$basicos[$indiceFactura][0]?>"/>
                     <span style="vertical-align:top;">
-                            <input type="submit" class="button-small-warn" value="Eliminar factura" name='submit'/>
+                            <input type="submit" class="button-small-warn" value="Eliminar orden" name='submit'/>
                     </span>
                     </form>
                 </div>
                 
                 
             </div>
-            <form method="post" action="edita_factura.php">
+            <form method="post" action="edita_orden.php">
             <div class="left">
             <h3>Datos basicos</h3>    
-            <label>No. factura:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>" name="no_factura"/>
-            <p><b>Fecha de la factura:</b><?=$basicos[$indiceFactura][2]?></p>
-            <label>Total de la factura:</label><input type="text" name="granTotal"  value="<?=$basicos[$indiceFactura][1]?>"/><br>
+            <label>No. orden:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>" name="no_orden"/>
+            <p><b>Fecha de la orden:</b><?=$basicos[$indiceFactura][2]?></p>
+            <label>Total de la orden:</label><input type="text" name="granTotal"  value="<?=$basicos[$indiceFactura][1]?>"/><br>
             
             </div>
             
@@ -134,7 +134,7 @@ include_once 'consulta.inc.php';
             <label>Notas:</label> <textarea name="notas"><?=$basicos[$indiceFactura][9]?></textarea>
             </div>
             <div class="left">
-                <input type="hidden" name="id_factura" value="<?=$basicos[$indiceFactura][0]?>"/>
+                <input type="hidden" name="id_orden" value="<?=$basicos[$indiceFactura][0]?>"/>
                 <img src="/css/img/save.png" height="20" width="20">
                     <span style="vertical-align:top;">
                             <input type="submit" class="button-small" value="Guardar cambios" name='submit'/>

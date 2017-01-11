@@ -33,7 +33,7 @@
          <button class="dropbtn">Ediciones</button>
      <div id="consultas" class="dropdown-content">
         <a href="edita_factura.php" target="pages">Edita factura</a>
-
+        <a href="edita_orden.php" target="pages">Edita orden</a>
      </div>
      </div>
 
