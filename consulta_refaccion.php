@@ -11,6 +11,7 @@ include_once '_includes/db_connect.php';
         <table style="border:1px solid black;">
             
             <tr >
+                <th>Fecha de facturacion</th>
                 <th>Codigo de refaccion</th>
                 <th>No. Material</th>
                 <th>Nombre</th>
@@ -19,15 +20,18 @@ include_once '_includes/db_connect.php';
         <?php
         global $mysqli;
         $stmtLook=$mysqli->prepare("SELECT refaccion_codigo,refaccion_no_material,refaccion_nombre,
-        SUM(FR.refaccion_cantidad)
+        SUM(FR.refaccion_cantidad),DATE_FORMAT(factura_fecha,'%d/%m/%Y')
         FROM Refacciones INNER JOIN Factura_por_refaccion FR ON refaccion_codigo=FR.refaccion_fkey
-        GROUP BY refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario ORDER BY refaccion_codigo");
+        INNER JOIN Facturas ON FR.factura_fkey = factura_pkey
+        GROUP BY refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario,DATE_FORMAT(factura_fecha,'%d/%m/%Y')
+        ORDER BY factura_fecha");
         echo $mysqli->error;
-        $stmtLook->bind_result($codigo,$material,$descripcion,$precio);
+        $stmtLook->bind_result($codigo,$material,$descripcion,$precio,$fecha);
         $stmtLook->execute();
         while($stmtLook->fetch()):
         ?>
             <tr >   
+            <td><?=$fecha?></td>
             <td>
             <?=$codigo?></td>
             <td><?=$material?></td>
