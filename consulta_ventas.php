@@ -18,7 +18,7 @@ include_once '_includes/db_connect.php';
             </tr>
         <?php
         global $mysqli;
-        $stmtLook=$mysqli->prepare("SELECT IFNULL(SUM(FS.servicio_cantidad),0),SUM(F.factura_total),
+        $stmtLook=$mysqli->prepare("SELECT IFNULL(SUM(FS.servicio_cantidad),0),FORMAT(SUM(F.factura_total),2),
         ifNULL(SUM(FR.refaccion_cantidad),0),DATE_FORMAT(F.factura_fecha,'%d/%m/%Y')
         FROM Factura_por_refaccion FR
         RIGHT JOIN Facturas F ON FR.factura_fkey = F.factura_pkey
