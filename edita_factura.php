@@ -61,7 +61,7 @@ include_once 'update.inc.php';
             <h3>Datos basicos</h3>    
             <label>No. factura:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>" name="no_factura"/>
             <p><b>Fecha de la factura:</b><?=$basicos[$indiceFactura][2]?></p>
-            <label>Total de la factura:</label><input type="text" name="granTotal" class="totales" id="granTotal" value="<?=$basicos[$indiceFactura][1]?>"/><br>
+            <label>Total de la factura:</label><input type="text" name="granTotal"  value="<?=$basicos[$indiceFactura][1]?>"/><br>
             
             </div>
             

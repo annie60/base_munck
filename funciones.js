@@ -215,6 +215,7 @@
                 sumaTotal= (parseFloat(sumaTotal)+parseFloat(valorActual)).toFixed(2);
             }
 
+
             document.getElementById('granTotal').value=sumaTotal;
         }
         function agregarRefaccion(identificador,nombre,precio){
