@@ -41,6 +41,7 @@
      <div id="reportes" class="dropdown-content">
         <a href="consulta_refaccion.php" target="pages">Refacciones facturadas</a>
         <a href="consulta_servicio.php" target="pages">Servicios facturados</a>
+        <a href="consulta_ventas.php" target="pages">Ventas diarias</a>
      </div>
      </div>
 
