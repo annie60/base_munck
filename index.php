@@ -26,6 +26,7 @@
         <a href="consulta_factura.php" target="pages">Consulta facturas</a>
         <a href="consulta_ordenes.php" target="pages">Consulta ordenes de compra</a>
         <a href="vista_servicio.php" target="pages">Consulta servicio</a>
+        <a href="vista_refaccion.php" target="pages">Consulta refacci&oacute;n</a>
      </div>
      </div>
      <div class="dropdown">

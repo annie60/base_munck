@@ -64,12 +64,11 @@ include_once 'new.inc.php';
             <br><br>
             <h4>Refacciones</h4>
             <div id='refaccion'>
-                
             </div>
-            <input type='button' value='Agregar Refacci&oacute;n' onclick='agregarAFactura(1)'/><br>
+            <input type='button' value='Agregar Refacci&oacute;n' onclick='agregarAFactura(1,-1)'/><br>
             <h4>Servicios</h4>
             <div id='servicio'></div>
-            <input type='button' value='Agregar Servicio' onclick='agregarAFactura(2)'/>
+            <input type='button' value='Agregar Servicio' onclick='agregarAFactura(2,-1)'/>
             <br><br>
             <label>Gran total</label>
             <input type="text" class="disabled" value="0.00" name="granTotal" id='granTotal' />

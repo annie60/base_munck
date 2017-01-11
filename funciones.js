@@ -179,9 +179,12 @@
             
         }
         
-        function agregarAFactura(numero){
+        function agregarAFactura(numero,id){
             var modal;
             var span;
+            if(id != -1){
+                document.getElementById('id_agregar').value=id;
+            }
             if(numero == 1){
                 span = document.getElementsByClassName('close')[0];
                 modal = document.getElementById('nuevaRefaccion');
@@ -202,53 +205,77 @@
                 }
             }
         }
+        
         function calculaTotal(){
             var totales= document.getElementsByClassName('totales');
             var sumaTotal=0;
+            
             for(var i=0;i<totales.length;i++){
                 var valorActual=totales[i].value;
                 sumaTotal= (parseFloat(sumaTotal)+parseFloat(valorActual)).toFixed(2);
             }
+
             document.getElementById('granTotal').value=sumaTotal;
         }
         function agregarRefaccion(identificador,nombre,precio){
-            var refacciones=document.getElementById('refaccion');
+            var elemento= document.getElementById('id_agregar');
+            var identificadorLocal=identificador;
+            if(elemento != null){
+                if(elemento.value != ""){
+                identificador=elemento.value;
+                elemento.value="";
+                }
+            }else{
+                identificador='';
+            }
+            var refacciones=document.getElementById('refaccion'+identificador);
             refacciones.innerHTML = refacciones.innerHTML +
-            "<div id='"+identificador+"' >"+
+            "<div id='"+identificadorLocal+"' >"+
             "<table><tr>"+
-            "<td rowspan='2'><input type='button' onclick='quitar(\""+identificador+"\")' value='Quitar'/>"+
+            "<td rowspan='2'><input type='button' onclick='quitar(\""+identificadorLocal+"\")' value='Quitar'/>"+
             "<td>No. Refaccion</td>"+
             "<td>Nombre</td>"+
             "<td>Cantidad</td>"+
             "<td>Total</td>"+
             "</tr><tr> "+
-            "<td><input type='text' value='"+identificador+"' /></td>"+
+            "<td><input type='text' value='"+identificadorLocal+"' /></td>"+
             "<td><input type='text' value='"+nombre+"' /></td>"+
-            "<td><input type='text' value='1' name='cantidades[]' onchange='recalcula(this.value,"+precio+",\""+identificador+"\")' /></td>"+
-            "<td><input type='text' class='totales' id='total"+identificador+"' value='"+precio+"' onchange='calculaTotal()' /></td>"+
+            "<td><input type='text' value='1' name='cantidades[]' onchange='recalcula(this.value,"+precio+",\""+identificadorLocal+"\")' /></td>"+
+            "<td><input type='text' class='totales' id='total"+identificadorLocal+"' value='"+precio+"' onchange='calculaTotal()' /></td>"+
             "</tr></table>"+
-            "<input type='hidden' name='refacciones[]' value='"+identificador+"'/>";
+            "<input type='hidden' name='refacciones[]' value='"+identificadorLocal+"'/>";
              var modal = document.getElementById('nuevaRefaccion');
              modal.style.display="none";
             calculaTotal();
         }
         function agregarServicio(identificador,nombre,precio){
-            var servicios=document.getElementById('servicio');
+            var elemento= document.getElementById('id_agregar');
+            var identificadorLocal=identificador;
+            if(elemento != null){
+                if(elemento.value != ""){
+                identificador=elemento.value;
+                elemento.value="";
+                }
+            }else{
+                identificador='';
+            }
+            var servicios=document.getElementById('servicio'+identificador);
+            
             servicios.innerHTML = servicios.innerHTML +
-            "<div id='"+identificador+"' >"+
+            "<div id='"+identificadorLocal+"' >"+
             "<table><tr>"+
-            "<td rowspan='2'><input type='button' onclick='quitar(\""+identificador+"\")' value='Quitar'/>"+
+            "<td rowspan='2'><input type='button' onclick='quitar(\""+identificadorLocal+"\")' value='Quitar'/>"+
             "<td>No. Servicio</td>"+
             "<td>Descripcion</td>"+
             "<td>Cantidad</td>"+
             "<td>Total</td>"+
             "</tr><tr> "+
-            "<td><input type='text' value='"+identificador+"' /></td>"+
+            "<td><input type='text' value='"+identificadorLocal+"' /></td>"+
             "<td><input type='text' value='"+nombre+"' /></td>"+
-            "<td><input type='text' value='1' name='cantidades2[]' onchange='recalcula(this.value,"+precio+",\""+identificador+"\")' /></td>"+
-            "<td><input type='text' class='totales' id='total"+identificador+"' value='"+precio+"' onchange='calculaTotal()'/></td>"+
+            "<td><input type='text' value='1' name='cantidades2[]' onchange='recalcula(this.value,"+precio+",\""+identificadorLocal+"\")' /></td>"+
+            "<td><input type='text' class='totales' id='total"+identificadorLocal+"' value='"+precio+"' onchange='calculaTotal()'/></td>"+
             "</tr></table>"+
-            "<input type='hidden' name='servicios[]' value='"+identificador+"'/>";
+            "<input type='hidden' name='servicios[]' value='"+identificadorLocal+"'/>";
             var modal = document.getElementById('nuevoServicio');
              modal.style.display="none";
             calculaTotal();
@@ -263,6 +290,9 @@
         }
         
         function quitar(identificador){
+            var total = document.getElementById('total'+identificador);
+            var nuevoValor = document.getElementById('granTotal').value - total.value;
+            document.getElementById('granTotal').value=nuevoValor;
             var elemento = document.getElementById(identificador);
             elemento.remove();
             calculaTotal();

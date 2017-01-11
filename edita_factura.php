@@ -27,28 +27,42 @@ include_once 'update.inc.php';
                 <input type="submit" value="Buscar" class="button-small"/>
             </form>
         </div>
+        <input type="hidden" id="id_agregar" value=""/>
         <?php
+        if (!empty($error_msg)) {
+            echo $error_msg;
+        }elseif (!empty($correct_msg)) {
+            echo $correct_msg;
+        }
         if($indicebasicos==0):?>
             <p class="error">No hay facturas que mostrar.</p>
         <?php else:
         for($indiceFactura=0;$indiceFactura<$indicebasicos;$indiceFactura++):
         ?>
-        <form method="post" action="edita_factura.php">
+        
         <div class="left" style="border: 1px solid black;">
             <div class="center">
                 <h2>Datos de la factura</h2>
+                
+                
+                <div class="right">
+                    <form method="post" action="edita_factura.php">
+                    <input type="hidden" name="id_elimina" value="<?=$basicos[$indiceFactura][0]?>"/>
+                    <span style="vertical-align:top;">
+                            <input type="submit" class="button-small-warn" value="Eliminar factura" name='submit'/>
+                    </span>
+                    </form>
+                </div>
+                
+                
             </div>
+            <form method="post" action="edita_factura.php">
             <div class="left">
             <h3>Datos basicos</h3>    
-            <label>No. factura:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>"/>
-            <label>Fecha de la factura:</label><input type="text" value="<?=$basicos[$indiceFactura][2]?>"/>
-            <label>Total de la factura:</label><input type="text" value="$<?=$basicos[$indiceFactura][1]?>"/><br>
-            <img src="/css/img/save.png" height="20" width="20">
-                    <span style="vertical-align:top;">
-                            <input type="submit" class="button-small" value="Guardar cambios" name='submit'/>
-                    </span>
-            </img>
-            </form>
+            <label>No. factura:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>" name="no_factura"/>
+            <p><b>Fecha de la factura:</b><?=$basicos[$indiceFactura][2]?></p>
+            <label>Total de la factura:</label><input type="text" name="granTotal" class="totales" id="granTotal" value="<?=$basicos[$indiceFactura][1]?>"/><br>
+            
             </div>
             
             <div class="left">
@@ -81,7 +95,11 @@ include_once 'update.inc.php';
                     </div>
                 <?php
                     endwhile;?>
+            <div id='refaccion<?=$indiceFactura?>'>
             </div>
+            <input type='button' value='Agregar Refacci&oacute;n' onclick='agregarAFactura(1,<?=$indiceFactura?>)'/>
+            </div>
+            
             <div class="left">
                 <h4>Servicios</h4>
                 <?php
@@ -102,22 +120,120 @@ include_once 'update.inc.php';
                 endwhile;
                 
                 ?>
+                <div id='servicio<?=$indiceFactura?>'></div>
+                <input type='button' value='Agregar Servicio' onclick='agregarAFactura(2,<?=$indiceFactura?>)'/>
             </div>
+            
+            
             </div>
+            
             <div class="left">
             <h3>Datos adicionales</h3>    
         
-            <p><b>Notas:</b> <?=$basicos[$indiceFactura][9]?></p>
+            <label>Notas:</label> <textarea name="notas"><?=$basicos[$indiceFactura][9]?></textarea>
             </div>
-            
+            <div class="left">
+                <input type="hidden" name="id_factura" value="<?=$basicos[$indiceFactura][0]?>"/>
+                <img src="/css/img/save.png" height="20" width="20">
                     <span style="vertical-align:top;">
-                            <input type="submit" class="button-small" value="Eliminar factura" name='submit'/>
+                            <input type="submit" class="button-small" value="Guardar cambios" name='submit'/>
                     </span>
-            
+                </img>    
+            </div>
         </div>
+        </form>
         <?php endfor;
         endif;
         ?>
-
+        <div id="nuevaRefaccion" class="modal">
+            <div class='modal-content'>
+            <span class="close">&times;</span>
+            <div class="center">
+                <h3>Refacciones</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No. refaccion</th>
+                            <th>Nombre</th>
+                            <th>Precio unitario</th>
+                        </tr>
+                    </thead>
+                    
+            <?php
+            $refacciones= array(array());
+        $index=0;
+        $stmt = $mysqli->prepare("SELECT refaccion_codigo,refaccion_nombre,refaccion_precio_unitario FROM Refacciones ORDER BY refaccion_codigo");
+        $stmt->execute();    // Execute the prepared query.
+        $stmt->store_result();
+        $stmt->bind_result($id,$nombre,$precio);
+        while($stmt->fetch()){
+                
+            $refacciones[$index][0]= $id;
+            $refacciones[$index][1]= $nombre;
+            $refacciones[$index][2]=$precio;
+            
+            $index++;
+        }
+        $index--;
+       
+        $stmt->close();
+            for($i=0;$i<=$index;$i++){
+                    echo "<tr onclick='agregarRefaccion(\"".$refacciones[$i][0]."\", \"".$refacciones[$i][1]."\",".$refacciones[$i][2].",".$indiceFactura.")'>";
+                    echo '<td>'.$refacciones[$i][0].'</td>';
+                    echo '<td>'.$refacciones[$i][1].'</td>';
+                    echo '<td>'.$refacciones[$i][2].'</td';
+                    echo '</tr>';
+            }
+            ?>
+                </table>
+                
+            </div>
+            </div>
+        </div>
+        <div id="nuevoServicio" class="modal">
+            <div class='modal-content'>
+            <span class="close">&times;</span>
+            <div class="center">
+                <h3>Servicios</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No. servicio</th>
+                            <th>Descripci&oacute;n</th>
+                            <th>Precio unitario</th>
+                        </tr>
+                    </thead>
+                    
+            <?php
+            $refacciones= array(array());
+        $index=0;
+        $stmt = $mysqli->prepare("SELECT servicio_codigo,servicio_descripcion,servicio_precio_unitario FROM Servicios ORDER BY servicio_codigo");
+        $stmt->execute();    // Execute the prepared query.
+        $stmt->store_result();
+        $stmt->bind_result($id,$nombre,$precio);
+        while($stmt->fetch()){
+                
+            $refacciones[$index][0]= $id;
+            $refacciones[$index][1]= $nombre;
+            $refacciones[$index][2]=$precio;
+            
+            $index++;
+        }
+        $index--;
+       
+        $stmt->close();
+            for($i=0;$i<=$index;$i++){
+                    echo "<tr onclick='agregarServicio(\"".$refacciones[$i][0]."\", \"".$refacciones[$i][1]."\",".$refacciones[$i][2].")'>";
+                    echo '<td>'.$refacciones[$i][0].'</td>';
+                    echo '<td>'.$refacciones[$i][1].'</td>';
+                    echo '<td>'.$refacciones[$i][2].'</td';
+                    echo '</tr>';
+            }
+            ?>
+                </table>
+                
+            </div>
+            </div>
+        </div>
     </body>
 </html>
