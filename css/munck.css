@@ -283,3 +283,10 @@ table tr{
     padding: 5px 20px;
     border: 1px solid black;
 }
+table td{
+    text-align: right;
+    padding: 10px;
+}
+table th{
+    padding:15px;
+}

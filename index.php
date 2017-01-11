@@ -36,6 +36,12 @@
         <a href="edita_orden.php" target="pages">Edita orden</a>
      </div>
      </div>
+     <div class="dropdown">
+         <button class="dropbtn">Reportes</button>
+     <div id="reportes" class="dropdown-content">
+        <a href="consulta_refaccion.php" target="pages">Refacciones facturadas</a>
+     </div>
+     </div>
 
 
 </div>
