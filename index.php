@@ -40,6 +40,7 @@
          <button class="dropbtn">Reportes</button>
      <div id="reportes" class="dropdown-content">
         <a href="consulta_refaccion.php" target="pages">Refacciones facturadas</a>
+        <a href="consulta_servicio.php" target="pages">Servicios facturadas</a>
      </div>
      </div>
 
