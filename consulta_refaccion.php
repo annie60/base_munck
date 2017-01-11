@@ -5,7 +5,7 @@ include_once '_includes/db_connect.php';
 <html>
     <link rel="stylesheet" href="../css/munck.css" type="text/css">
     <body>
-        <div class="center">
+        <div class="left">
 
         <h3>Refacciones facturadas</h3>
         <table style="border:1px solid black;">
