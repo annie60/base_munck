@@ -9,7 +9,7 @@ if(isset($_POST['descripcion'])){
     $codigo = $_POST['codigo'];
     $precio = $_POST['precio'];
     $precio = floatval($precio);
-    // Insert the new user into the database 
+    // Insert the new service into the database 
     if ($insert_stmt = $mysqli->prepare("INSERT INTO Servicios(servicio_codigo,servicio_descripcion,servicio_precio_unitario) 
     VALUES (?,?, ?)")) {
       $insert_stmt->bind_param('ssi',$codigo, $descripcion,$precio);
@@ -32,8 +32,8 @@ if(isset($_POST['descripcion'])){
     $precio = floatval($precio);
     // Inserta nueva refaccion
     if ($insert_stmt = $mysqli->prepare("INSERT INTO Refacciones(refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario) 
-    VALUES (?,?, ?)")) {
-      $insert_stmt->bind_param('ssi',$codigo, $nombre,$precio);
+    VALUES (?,?,?, ?)")) {
+      $insert_stmt->bind_param('sssi',$codigo,$material, $nombre,$precio);
                 // Execute the prepared query.
                 if (!$insert_stmt->execute()) {
                    
@@ -41,7 +41,8 @@ if(isset($_POST['descripcion'])){
                 }
                 $correct_msg.="<p class='correct'>Exito! Se creo con exito</p>";
     }else{
-                $error_msg.="<p class='error'>Error en la base de datos</p>";
+            
+                $error_msg.="<p class='error'>Error en la base de datos </p>";
     }
 }else if(isset($_POST['cliente'])){
   global $mysqli;
