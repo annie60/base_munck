@@ -20,6 +20,20 @@ if(isset($_POST['codigo_servicio'])){
     }else{
         $correct_msg.="<p class='correct'>Los cambios se guardaron ".$query."</p>";
     }
+}else if(isset($_POST['codigo_ref'])){
+    global $mysqli;
+    $codigo=$_POST['codigo_ref'];
+    $cantidad=$_POST['cantidad'];
+    $id_factura=$_POST['id_factura_ref'];
+    $query="UPDATE Factura_por_refaccion SET refaccion_cantidad=? WHERE factura_fkey=? AND refaccion_fkey=?";
+    $stmt=$mysqli->prepare($query);
+    $stmt->bind_param('iis',$cantidad,$id_factura,$codigo);
+    if(!$stmt->execute()){
+        $error=$stmt->error;
+        $error_msg.="<p class='error'>Error al actualizar ".$error."</p>";
+    }else{
+        $correct_msg.="<p class='correct'>Los cambios se guardaron </p>";
+    }
 }else if(isset($_POST['id_factura'])){
     global $mysqli;
     $id_fac=$_POST['id_factura'];

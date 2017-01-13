@@ -3,6 +3,11 @@ $tabla="Facturas";
 $nombreCampo="factura";
 $relacion="Factura";
 include_once 'update.inc.php';
+if (!empty($error_msg)) {
+            echo $error_msg;
+}elseif (!empty($correct_msg)) {
+            echo $correct_msg;
+}
 include_once 'consulta.inc.php';
 
 
@@ -30,11 +35,7 @@ include_once 'consulta.inc.php';
         </div>
         <input type="hidden" id="id_agregar" value=""/>
         <?php
-        if (!empty($error_msg)) {
-            echo $error_msg;
-        }elseif (!empty($correct_msg)) {
-            echo $correct_msg;
-        }
+        
         if($indicebasicos==0):?>
             <p class="error">No hay facturas que mostrar.</p>
         <?php else:
@@ -92,7 +93,16 @@ include_once 'consulta.inc.php';
                         <b>No. material:</b> <?=$no_material?><br>
                         <b>Nombre:</b> <?=$nombreRefaccion?><br>
                         <b>Precio unitario:</b> $<?=$precio?><br>
-                        <b>Cantidad:</b> <?=$cantidad?></p><br>
+                        <form method="post" action="edita_factura.php">
+                        <label>Cantidad:</label><input type="number" value="<?=$cantidad?>" name="cantidad"/><br>
+                        <input type="hidden" name="id_factura_ref" value="<?=$basicos[$indiceFactura][0]?>"/>
+                        <input type="hidden" name="codigo_ref" value="<?=$codigo?>" />
+                        <img src="/css/img/save.png" height="20" width="20">
+                        <span style="vertical-align:top;">
+                            <input type="submit" class="button-small" value="Guardar" name='submit'/>
+                        </span>
+                        </img>  
+                        </form>
                     </div>
                 <?php
                     endwhile;?>
