@@ -58,8 +58,9 @@ include_once 'consulta.inc.php';
                 
                 
             </div>
-            <form method="post" action="edita_factura.php">
+            
             <div class="left">
+            <form method="post" action="edita_factura.php">
             <h3>Datos basicos</h3>    
             <label>No. factura:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>" name="no_factura"/>
             <p><b>Fecha de la factura:</b><?=$basicos[$indiceFactura][2]?></p>
@@ -97,11 +98,7 @@ include_once 'consulta.inc.php';
                         <label>Cantidad:</label><input type="number" value="<?=$cantidad?>" name="cantidad"/><br>
                         <input type="hidden" name="id_factura_ref" value="<?=$basicos[$indiceFactura][0]?>"/>
                         <input type="hidden" name="codigo_ref" value="<?=$codigo?>" />
-                        <img src="/css/img/save.png" height="20" width="20">
-                        <span style="vertical-align:top;">
-                            <input type="submit" class="button-small" value="Guardar" name='submit'/>
-                        </span>
-                        </img>  
+                        <input type="submit" class="button-small" value="Guardar" name='submit'/>
                         </form>
                     </div>
                 <?php
@@ -125,7 +122,12 @@ include_once 'consulta.inc.php';
                         <p><b>Codigo:</b> <?=$codigo?><br>
                         <b>Nombre:</b> <?=$nombreServicio?><br>
                         <b>Precio unitario:</b> <?=$precio?><br>
-                        <b>Cantidad:</b> <?=$cantidad?></p>
+                        <form method="post" action="edita_factura.php">
+                        <label>Cantidad:</label><input type="number" value="<?=$cantidad?>" name="cantidad"/><br>
+                        <input type="hidden" name="id_factura_serv" value="<?=$basicos[$indiceFactura][0]?>"/>
+                        <input type="hidden" name="codigo_serv" value="<?=$codigo?>" />
+                        <input type="submit" class="button-small" value="Guardar" name='submit'/>
+                        </form>
                         </div>
                 <?php
                 endwhile;
@@ -143,11 +145,12 @@ include_once 'consulta.inc.php';
         
             <label>Notas:</label> <textarea name="notas"><?=$basicos[$indiceFactura][9]?></textarea>
             </div>
-            <div class="left">
+            <br><br>
+            <div class="right">
                 <input type="hidden" name="id_factura" value="<?=$basicos[$indiceFactura][0]?>"/>
                 <img src="/css/img/save.png" height="20" width="20">
                     <span style="vertical-align:top;">
-                            <input type="submit" class="button-small" value="Guardar cambios" name='submit'/>
+                            <input type="submit" class="button" value="Guardar cambios" name='submit'/>
                     </span>
                 </img>    
             </div>

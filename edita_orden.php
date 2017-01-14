@@ -3,6 +3,11 @@ $tabla="Ordenes_compra";
 $nombreCampo="orden";
 $relacion="Orden";
 include_once 'update.inc.php';
+if (!empty($error_msg)) {
+            echo $error_msg;
+}elseif (!empty($correct_msg)) {
+            echo $correct_msg;
+}
 include_once 'consulta.inc.php';
 
 
@@ -92,7 +97,12 @@ include_once 'consulta.inc.php';
                         <b>No. material:</b> <?=$no_material?><br>
                         <b>Nombre:</b> <?=$nombreRefaccion?><br>
                         <b>Precio unitario:</b> $<?=$precio?><br>
-                        <b>Cantidad:</b> <?=$cantidad?></p><br>
+                        <form method="post" action="edita_orden.php">
+                        <label>Cantidad:</label><input type="number" value="<?=$cantidad?>" name="cantidad"/><br>
+                        <input type="hidden" name="id_factura_ref" value="<?=$basicos[$indiceFactura][0]?>"/>
+                        <input type="hidden" name="codigo_ref" value="<?=$codigo?>" />
+                        <input type="submit" class="button-small" value="Guardar" name='submit'/>
+                        </form>
                     </div>
                 <?php
                     endwhile;?>
@@ -115,7 +125,12 @@ include_once 'consulta.inc.php';
                         <p><b>Codigo:</b> <?=$codigo?><br>
                         <b>Nombre:</b> <?=$nombreServicio?><br>
                         <b>Precio unitario:</b> <?=$precio?><br>
-                        <b>Cantidad:</b> <?=$cantidad?></p>
+                        <form method="post" action="edita_orden.php">
+                        <label>Cantidad:</label><input type="number" value="<?=$cantidad?>" name="cantidad"/><br>
+                        <input type="hidden" name="id_factura_serv" value="<?=$basicos[$indiceFactura][0]?>"/>
+                        <input type="hidden" name="codigo_serv" value="<?=$codigo?>" />
+                        <input type="submit" class="button-small" value="Guardar" name='submit'/>
+                        </form>
                         </div>
                 <?php
                 endwhile;
@@ -134,7 +149,7 @@ include_once 'consulta.inc.php';
             <label>Notas:</label> <textarea name="notas"><?=$basicos[$indiceFactura][9]?></textarea>
             </div>
             <div class="left">
-                <input type="hidden" name="id_orden" value="<?=$basicos[$indiceFactura][0]?>"/>
+                <input type="hidden" name="id_factura" value="<?=$basicos[$indiceFactura][0]?>"/>
                 <img src="/css/img/save.png" height="20" width="20">
                     <span style="vertical-align:top;">
                             <input type="submit" class="button-small" value="Guardar cambios" name='submit'/>
