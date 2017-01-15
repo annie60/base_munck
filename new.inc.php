@@ -90,14 +90,15 @@ if(isset($_POST['descripcion'])){
     if(isset($_POST['servicios'])){
       $servicios = $_POST['servicios'];
       $cantidadesServicios = $_POST['cantidades2'];
+      $totales=$_POST['totales2'];
       //por cada servicio captura inserta una relacion hacia la factura
       foreach( $servicios as $key => $n){
-        if ($insert_stmt = $mysqli->prepare("INSERT INTO Factura_por_servicio(factura_fkey,servicio_fkey,servicio_cantidad) VALUES (?,?, ?)")) {
-          $insert_stmt->bind_param('isi',$last_id,$servicios[$key],$cantidadesServicios[$key]);
+        if ($insert_stmt = $mysqli->prepare("INSERT INTO Factura_por_servicio(factura_fkey,servicio_fkey,servicio_cantidad,servicio_precio) VALUES (?,?, ?,?)")) {
+          $insert_stmt->bind_param('isii',$last_id,$servicios[$key],$cantidadesServicios[$key],$totales[$key]);
                 // Execute the prepared query.
                 if (!$insert_stmt->execute()) {
-                   
-                   $error_msg.="<p class='error'>Error al dar de alta el servicio</p>";
+                   $error=$insert_stmt->error;
+                   $error_msg.="<p class='error'>Error al dar de alta el servicio ".$error."</p>";
                 
                   break;
                 }

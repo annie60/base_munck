@@ -274,7 +274,7 @@
             "<td><input type='text' value='"+identificadorLocal+"' /></td>"+
             "<td><input type='text' value='"+nombre+"' /></td>"+
             "<td><input type='text' value='1' name='cantidades2[]' onchange='recalcula(this.value,"+precio+",\""+identificadorLocal+"\")' /></td>"+
-            "<td><input type='text' class='totales' id='total"+identificadorLocal+"' value='"+precio+"' onchange='calculaTotal()'/></td>"+
+            "<td><input type='text' name='totales2[]' class='totales' id='total"+identificadorLocal+"' value='"+precio+"' onchange='calculaTotal()'/></td>"+
             "</tr></table>"+
             "<input type='hidden' name='servicios[]' value='"+identificadorLocal+"'/>";
             var modal = document.getElementById('nuevoServicio');

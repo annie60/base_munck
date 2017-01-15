@@ -24,17 +24,17 @@ if( !empty($_POST['no_material'])){
 if( !empty($_POST['nombre_refaccion'])){
             $valor3=$_POST['nombre_refaccion'];
             if(empty($condicion)){
-                $condicion.= " WHERE refaccion_nombre = '".$valor2."'";
+                $condicion.= " WHERE refaccion_nombre = '".$valor3."'";
             }else{
-                $condicion.= " AND refaccion_nombre = '".$valor2."'";
+                $condicion.= " AND refaccion_nombre = '".$valor3."'";
             }
 }
 if( !empty($_POST['fecha'])){
             $valor4=$_POST['fecha'];
             if(empty($condicion)){
-                $condicion.= " WHERE git factura_fecha LIKE '%".$valor2."%'";
+                $condicion.= " WHERE factura_fecha LIKE '%".$valor4."%'";
             }else{
-                $condicion.= " AND factura_fecha LIKE '%".$valor2."%'";
+                $condicion.= " AND factura_fecha LIKE '%".$valor4."%'";
             }
 }
 ?>

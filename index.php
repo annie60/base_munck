@@ -42,6 +42,7 @@
         <a href="consulta_refaccion.php" target="pages">Refacciones facturadas</a>
         <a href="consulta_servicio.php" target="pages">Servicios facturados</a>
         <a href="consulta_ventas.php" target="pages">Ventas diarias</a>
+        <a href="consulta_ventas_cliente.php" target="pages">Ventas por cliente</a>
      </div>
      </div>
 

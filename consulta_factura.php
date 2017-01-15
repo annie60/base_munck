@@ -88,7 +88,7 @@ include_once 'consulta.inc.php';
             <div class="left">
                 <h4>Servicios</h4>
                 <?php
-                    $stmtServicio = $mysqli->prepare("SELECT servicio_codigo,servicio_descripcion,servicio_precio_unitario,servicio_cantidad
+                    $stmtServicio = $mysqli->prepare("SELECT servicio_codigo,servicio_descripcion,servicio_precio,servicio_cantidad
                     FROM Servicios INNER JOIN ".$relacion."_por_servicio ON servicio_codigo=servicio_fkey WHERE ".$nombreCampo."_fkey = ?");
                     echo $mysqli->error;
                     $stmtServicio->bind_param('i',$basicos[$indiceFactura][0]);
