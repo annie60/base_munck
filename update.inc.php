@@ -7,13 +7,16 @@ $correct_msg="";
 if(isset($_POST['codigo_servicio'])){
     global $mysqli;
     $codigo_antiguo=$_POST['codigo_servicio'];
-    $codigo=$_POST['codigo'];
-    $descripcion=$_POST['descripcion'];
-    $precio=floatval( $_POST['precio']);
-    $query="UPDATE Servicios SET servicio_codigo=".$codigo.",servicio_descripcion=".$descripcion.",servicio_precio_unitario=".$precio." 
-    WHERE servicio_codigo=".$codigo_antiguo."";
-    $stmt=$mysqli->prepare("UPDATE Servicios SET servicio_codigo=?,servicio_descripcion=?,servicio_precio_unitario=? WHERE servicio_codigo=?");
-    $stmt->bind_param('ssis',$codigo,$descripcion,$precio,$codigo_antiguo);
+    if($_POST['accion'] ==0){
+        $codigo=$_POST['codigo'];
+        $descripcion=$_POST['descripcion'];
+        $precio=floatval( $_POST['precio']);
+        $stmt=$mysqli->prepare("UPDATE Servicios SET servicio_codigo=?,servicio_descripcion=?,servicio_precio_unitario=? WHERE servicio_codigo=?");
+        $stmt->bind_param('ssis',$codigo,$descripcion,$precio,$codigo_antiguo);
+    }else{
+        $stmt=$mysqli->prepare("DELETE FROM Servicios WHERE servicio_codigo=?");
+        $stmt->bind_param('s',$codigo_antiguo);
+    }
     if(!$stmt->execute()){
         $error=$stmt->error;
         $error_msg.="<p class='error'>Error al actualizar".$error."</p>";
@@ -23,11 +26,17 @@ if(isset($_POST['codigo_servicio'])){
 }else if(isset($_POST['codigo_refaccion'])){
     global $mysqli;
     $codigo_antiguo=$_POST['codigo_refaccion'];
-    $codigo=$_POST['codigo'];
-    $descripcion=$_POST['descripcion'];
-    $precio=floatval( $_POST['precio']);
-    $stmt=$mysqli->prepare("UPDATE Refacciones SET refaccion_codigo=?,refaccion_nombre=?,refaccion_precio_unitario=? WHERE refaccion_codigo=?");
-    $stmt->bind_param('ssis',$codigo,$descripcion,$precio,$codigo_antiguo);
+    if($_POST['accion'] ==0){
+        $codigo=$_POST['codigo'];
+        $descripcion=$_POST['descripcion'];
+        $precio=floatval( $_POST['precio']);
+    
+        $stmt=$mysqli->prepare("UPDATE Refacciones SET refaccion_codigo=?,refaccion_nombre=?,refaccion_precio_unitario=? WHERE refaccion_codigo=?");
+        $stmt->bind_param('ssis',$codigo,$descripcion,$precio,$codigo_antiguo);
+    }else{
+        $stmt=$mysqli->prepare("DELETE FROM Refacciones WHERE refaccion_codigo=?");
+        $stmt->bind_param('s',$codigo_antiguo);
+    }
     if(!$stmt->execute()){
         $error=$stmt->error;
         $error_msg.="<p class='error'>Error al actualizar".$error."</p>";

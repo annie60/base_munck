@@ -53,9 +53,7 @@ include_once 'update.inc.php';
         </div>
         <h3>Refacciones</h3>
         <table style="border:1px solid black;">
-            <form action="vista_refaccion.php" 
-                method="post"
-                name="new_form">
+            
             
             <tr >
                 <th>Codigo de refaccion</th>
@@ -72,9 +70,14 @@ include_once 'update.inc.php';
         $stmtLook->execute();
         while($stmtLook->fetch()):
         ?>
-            <tr >   
+            <tr >
+                   
             <td>
+            <form action="vista_refaccion.php" 
+                method="post"
+                name="new_form">
             <input type="hidden" name="codigo_refaccion"  value="<?=$codigo?>"/>
+            <input type="hidden" name="accion"  value="0"/>
             <input type="text" class="edition" name="codigo"  value="<?=$codigo?>"/></td>
             <td><input type="text" class="edition" name="no_material"  value="<?=$material?>"/></td>
             <td>
@@ -88,11 +91,19 @@ include_once 'update.inc.php';
                     </span>
                 </img>
             </td>
+            </form>
+            <td><form action="vista_refaccion.php" 
+                method="post">
+                <input type="hidden" name="codigo_refaccion"  value="<?=$codigo?>"/>
+                <input type="hidden" name="accion"  value="1"/>
+                <input type="submit" class="button-small-warn" value="Eliminar" name='submit'/>
+                </form>
+            </td>
             </tr> 
         <?php
         endwhile;
         ?>
-            </form>
+            
         </table>
         
         
