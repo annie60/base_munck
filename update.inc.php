@@ -20,6 +20,20 @@ if(isset($_POST['codigo_servicio'])){
     }else{
         $correct_msg.="<p class='correct'>Los cambios se guardaron ".$query."</p>";
     }
+}else if(isset($_POST['codigo_refaccion'])){
+    global $mysqli;
+    $codigo_antiguo=$_POST['codigo_refaccion'];
+    $codigo=$_POST['codigo'];
+    $descripcion=$_POST['descripcion'];
+    $precio=floatval( $_POST['precio']);
+    $stmt=$mysqli->prepare("UPDATE Refacciones SET refaccion_codigo=?,refaccion_nombre=?,refaccion_precio_unitario=? WHERE refaccion_codigo=?");
+    $stmt->bind_param('ssis',$codigo,$descripcion,$precio,$codigo_antiguo);
+    if(!$stmt->execute()){
+        $error=$stmt->error;
+        $error_msg.="<p class='error'>Error al actualizar".$error."</p>";
+    }else{
+        $correct_msg.="<p class='correct'>Los cambios se guardaron ".$query."</p>";
+    }
 }else if(isset($_POST['codigo_ref'])){
     global $mysqli;
     $codigo=$_POST['codigo_ref'];
@@ -96,7 +110,7 @@ if(isset($_POST['codigo_servicio'])){
       $cantidadesServicios = $_POST['cantidades2'];
       //por cada servicio captura inserta una relacion hacia la factura
       foreach( $servicios as $key => $n){
-        if ($insert_stmt = $mysqli->prepare("INSERT INTO Factura_por_servicio(factura_fkey,servicio_fkey,servicio_cantidad) VALUES (?,?, ?)")) {
+        if ($insert_stmt = $mysqli->prepare("INSERT INTO ".$relacion."_por_servicio(".$nombreCampo."_fkey,servicio_fkey,servicio_cantidad) VALUES (?,?, ?)")) {
           $insert_stmt->bind_param('isi',$id_fac,$servicios[$key],$cantidadesServicios[$key]);
                 // Execute the prepared query.
                 if (!$insert_stmt->execute()) {
