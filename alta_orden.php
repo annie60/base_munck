@@ -45,6 +45,8 @@ include_once 'new.inc.php';
                 <h3>Nueva orden de compra</h3>
                 <label>No. orden</label>
                 <input type="number" required name="no_orden"/><br>
+                <label>Fecha de orden</label>
+            <input type="text" name="fecha" placeholder='dd/mm/aaaa' required/><br>
             <label>Cliente</label>
             <select name="cliente1" onchange="datosCliente(this.value)>
             <?php

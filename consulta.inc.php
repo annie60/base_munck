@@ -22,9 +22,9 @@ include_once '_includes/db_connect.php';
             $newformat = date('Y-d-m',$time);
             $tomorrow = date('Y-d-m',strtotime($_POST['fecha']. "+1 days"));
             if(empty($condicion)){
-                $condicion=" WHERE ".$nombreCampo."_fecha BETWEEN '".$newformat."' AND '".$tomorrow."'";
+                $condicion=" WHERE ".$nombreCampo."_fecha_facturacion BETWEEN '".$newformat."' AND '".$tomorrow."'";
             }else{
-                $condicion.= " AND ".$nombreCampo."_fecha BETWEEN '".$newformat."' AND '".$tomorrow."'";
+                $condicion.= " AND ".$nombreCampo."_fecha_facturacion BETWEEN '".$newformat."' AND '".$tomorrow."'";
             }
         }
         if(!empty($_POST['numero_of'])){
@@ -85,9 +85,9 @@ include_once '_includes/db_connect.php';
             }
         }
         //Busca los datos basicos de todas las facturas
-        $stmt=$mysqli->prepare("SELECT ".$nombreCampo."_pkey,".$nombreCampo."_total,DATE_FORMAT(".$nombreCampo."_fecha,'%d/%m/%Y'),cliente_nombre,
+        $stmt=$mysqli->prepare("SELECT ".$nombreCampo."_pkey,".$nombreCampo."_total,DATE_FORMAT(".$nombreCampo."_fecha_facturacion,'%d/%m/%Y'),cliente_nombre,
         cliente_razon,cliente_domicilio,cliente_contacto,cliente_telefono,cliente_correo,".$nombreCampo."_notas,".$nombreCampo."_numero, cliente_pkey 
-        FROM ".$tabla." INNER JOIN Clientes ON cliente_fkey = cliente_pkey".$condicion." ORDER BY ".$nombreCampo."_fecha");
+        FROM ".$tabla." INNER JOIN Clientes ON cliente_fkey = cliente_pkey".$condicion." ORDER BY ".$nombreCampo."_fecha_facturacion");
         $basicos=array(array());
         $indicebasicos=0;
         $stmt->execute();  
