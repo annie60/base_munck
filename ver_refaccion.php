@@ -23,10 +23,13 @@ if( !empty($_GET['fecha'])){
 ?>
 <html>
     <link rel="stylesheet" href="../css/munck.css" type="text/css">
+    <script type="text/javascript" src="funciones.js"></script>
     <body>
 
         <div class="left">
-
+        <div class="left">
+            <input type="button" class="button" value="Atras" onclick="goBack()"/>
+        </div>
         <h3>Refacciones facturadas</h3>
         <table style="border:1px solid black;">
             
@@ -46,13 +49,7 @@ if( !empty($_GET['fecha'])){
         INNER JOIN Facturas ON FR.factura_fkey = factura_pkey".$condicion." 
         GROUP BY refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario
         ORDER BY factura_fecha");
-        echo $mysqli->error;
-        echo "SELECT refaccion_codigo,refaccion_no_material,refaccion_nombre,
-        SUM(FR.refaccion_cantidad),DATE_FORMAT(factura_fecha,'%d/%m/%Y'),factura_numero
-        FROM Refacciones INNER JOIN Factura_por_refaccion FR ON refaccion_codigo=FR.refaccion_fkey
-        INNER JOIN Facturas ON FR.factura_fkey = factura_pkey".$condicion." 
-        GROUP BY refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario
-        ORDER BY factura_fecha";
+
         $stmtLook->bind_result($codigo,$material,$descripcion,$precio,$fecha,$numero_factura);
         $stmtLook->execute();
         while($stmtLook->fetch()):

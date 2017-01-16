@@ -205,7 +205,10 @@
                 }
             }
         }
-        
+
+        function goBack() {
+            window.history.back();
+        }
         function calculaTotal(){
             var totales= document.getElementsByClassName('totales');
             var sumaTotal=0;

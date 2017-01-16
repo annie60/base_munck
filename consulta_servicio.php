@@ -13,6 +13,8 @@ include_once '_includes/db_connect.php';
             
             <tr >
                 <th>Fecha de facturacion</th>
+                <th>Numero de factura</th>
+                <th>Total de factura</th>
                 <th>Codigo de servicio</th>
                 <th>Descripcion</th>
                 <th>Total de piezas</th>
@@ -20,18 +22,20 @@ include_once '_includes/db_connect.php';
         <?php
         global $mysqli;
         $stmtLook=$mysqli->prepare("SELECT servicio_codigo,servicio_descripcion,
-        SUM(FR.servicio_cantidad),DATE_FORMAT(factura_fecha,'%d/%m/%Y')
+        SUM(FR.servicio_cantidad),DATE_FORMAT(factura_fecha,'%d/%m/%Y'),factura_numero,FORMAT(factura_total,2)
         FROM Servicios INNER JOIN Factura_por_servicio FR ON servicio_codigo=FR.servicio_fkey
         INNER JOIN Facturas ON FR.factura_fkey = factura_pkey
         GROUP BY servicio_codigo,servicio_descripcion,servicio_precio_unitario,DATE_FORMAT(factura_fecha,'%d/%m/%Y') 
         ORDER BY factura_fecha");
         echo $mysqli->error;
-        $stmtLook->bind_result($codigo,$descripcion,$precio,$fecha);
+        $stmtLook->bind_result($codigo,$descripcion,$precio,$fecha,$numero,$total);
         $stmtLook->execute();
         while($stmtLook->fetch()):
         ?>
             <tr>
             <td><?=$fecha?></td>
+            <td><?=$numero?></td>
+            <td>$<?=$total?></td>
             <td>
             <?=$codigo?></td>
             <td>
