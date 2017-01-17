@@ -32,9 +32,9 @@ if( !empty($_POST['nombre_refaccion'])){
 if( !empty($_POST['fecha'])){
             $valor4=$_POST['fecha'];
             if(empty($condicion)){
-                $condicion.= " WHERE factura_fecha LIKE '%".$valor4."%'";
+                $condicion.= " WHERE factura_fecha_facturacion LIKE '%".$valor4."%'";
             }else{
-                $condicion.= " AND factura_fecha LIKE '%".$valor4."%'";
+                $condicion.= " AND factura_fecha_facturacion LIKE '%".$valor4."%'";
             }
 }
 ?>
@@ -73,9 +73,9 @@ if( !empty($_POST['fecha'])){
         <?php
         global $mysqli;
         $stmtLook=$mysqli->prepare("SELECT refaccion_codigo,refaccion_no_material,refaccion_nombre,
-        SUM(FR.refaccion_cantidad),DATE_FORMAT(factura_fecha,'%d/%m/%Y'),factura_numero
+        SUM(FR.refaccion_cantidad),DATE_FORMAT(factura_fecha_facturacion,'%d/%m/%Y'),factura_numero
         FROM Refacciones INNER JOIN Factura_por_refaccion FR ON refaccion_codigo=FR.refaccion_fkey
-        INNER JOIN Facturas ON FR.factura_fkey = factura_pkey".$condicion." GROUP BY refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario,DATE_FORMAT(factura_fecha,'%d/%m/%Y')
+        INNER JOIN Facturas ON FR.factura_fkey = factura_pkey".$condicion." GROUP BY refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario,DATE_FORMAT(factura_fecha_facturacion,'%d/%m/%Y')
         ORDER BY factura_fecha");
         echo $mysqli->error;
         $stmtLook->bind_result($codigo,$material,$descripcion,$precio,$fecha,$numero_factura);

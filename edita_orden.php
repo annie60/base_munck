@@ -66,7 +66,7 @@ include_once 'consulta.inc.php';
             <div class="left">
             <h3>Datos basicos</h3>    
             <label>No. orden:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>" name="no_orden"/>
-            <p><b>Fecha de la orden:</b><?=$basicos[$indiceFactura][2]?></p>
+            <label>Fecha de la orden:</label><input type="text" name="fecha" value="<?=$basicos[$indiceFactura][2]?>"/>
             <label>Total de la orden:</label><input type="text" name="granTotal"  value="<?=$basicos[$indiceFactura][1]?>"/><br>
             
             </div>

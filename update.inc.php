@@ -77,13 +77,14 @@ if(isset($_POST['codigo_servicio'])){
   $total =$_POST['granTotal'];
   $no_factura=$_POST['no_factura'];
   $notas = isset($_POST['notas'])? $_POST['notas']:"";
+  $fecha = isset($_POST['fecha'])? $_POST['fecha']:"";
   if ($update_stmt = $mysqli->prepare("UPDATE ".$tabla." SET ".$nombreCampo."_total=?,".$nombreCampo."_notas=?,
-  ".$nombreCampo."_numero=? WHERE ".$nombreCampo."_pkey=?")) {
-      $update_stmt->bind_param('isii',$total,$notas,$no_factura,$id_fac);
+  ".$nombreCampo."_numero=?,".$nombreCampo."_fecha_facturacion=? WHERE ".$nombreCampo."_pkey=?")) {
+      $update_stmt->bind_param('isisi',$total,$notas,$no_factura,$fecha,$id_fac);
                 // Execute the prepared query.
                 if (!$update_stmt->execute()) {
                    
-                   $error_msg.="<p class='error'>Error al actualizarn/p>";
+                   $error_msg.="<p class='error'>Error al actualizar</p>";
                 }
 
                 $correct_msg.="<p class='correct'>Exito! Se actualizo correctamente</p>";

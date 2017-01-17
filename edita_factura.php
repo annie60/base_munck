@@ -58,16 +58,28 @@ include_once 'consulta.inc.php';
                 
                 
             </div>
-            
-            <div class="left">
             <form method="post" action="edita_factura.php">
+            <div class="left">
+            
             <h3>Datos basicos</h3>    
             <label>No. factura:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>" name="no_factura"/>
-            <p><b>Fecha de la factura:</b><?=$basicos[$indiceFactura][2]?></p>
+            <label>Fecha de la factura:</label><input type="text" name="fecha" placeholder='dd/mm/aaaa' value="<?=$basicos[$indiceFactura][2]?>"/><br>
             <label>Total de la factura:</label><input type="text" name="granTotal"  value="<?=$basicos[$indiceFactura][1]?>"/><br>
             
             </div>
-            
+            <div class="left">
+            <h3>Datos adicionales</h3>    
+        
+            <label>Notas:</label> <textarea name="notas"><?=$basicos[$indiceFactura][9]?></textarea>
+            </div>
+            <div class="left">
+                <input type="hidden" name="id_factura" value="<?=$basicos[$indiceFactura][0]?>"/>
+                <img src="/css/img/save.png" height="20" width="20">
+                    <span style="vertical-align:top;">
+                            <input type="submit" class="button" value="Guardar cambios" name='submit'/>
+                    </span>
+                </img>    
+            </div>
             <div class="left">
                 <h3>Datos del cliente</h3>
                         <p><b>Nombre de cliente:</b> <?=$basicos[$indiceFactura][3]?><br>
@@ -140,20 +152,7 @@ include_once 'consulta.inc.php';
             
             </div>
             
-            <div class="left">
-            <h3>Datos adicionales</h3>    
-        
-            <label>Notas:</label> <textarea name="notas"><?=$basicos[$indiceFactura][9]?></textarea>
-            </div>
-            <br><br>
-            <div class="right">
-                <input type="hidden" name="id_factura" value="<?=$basicos[$indiceFactura][0]?>"/>
-                <img src="/css/img/save.png" height="20" width="20">
-                    <span style="vertical-align:top;">
-                            <input type="submit" class="button" value="Guardar cambios" name='submit'/>
-                    </span>
-                </img>    
-            </div>
+            
         </div>
         </form>
         <?php endfor;
