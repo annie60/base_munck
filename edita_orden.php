@@ -13,6 +13,7 @@ include_once 'consulta.inc.php';
 
 ?>
 
+
 <!DOCTYPE html>
 <html>
     <link rel="stylesheet" href="css/munck.css" type="text/css" />
@@ -35,11 +36,7 @@ include_once 'consulta.inc.php';
         </div>
         <input type="hidden" id="id_agregar" value=""/>
         <?php
-        if (!empty($error_msg)) {
-            echo $error_msg;
-        }elseif (!empty($correct_msg)) {
-            echo $correct_msg;
-        }
+        
         if($indicebasicos==0):?>
             <p class="error">No hay ordenes que mostrar.</p>
         <?php else:
@@ -64,13 +61,26 @@ include_once 'consulta.inc.php';
             </div>
             <form method="post" action="edita_orden.php">
             <div class="left">
+            
             <h3>Datos basicos</h3>    
-            <label>No. orden:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>" name="no_orden"/>
-            <label>Fecha de la orden:</label><input type="text" name="fecha" value="<?=$basicos[$indiceFactura][2]?>"/>
-            <label>Total de la orden:</label><input type="text" name="granTotal"  value="<?=$basicos[$indiceFactura][1]?>"/><br>
+            <label>No. orden:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>" name="no_factura"/><br>
+            <label>Fecha de la orden:</label><input type="text" name="fecha_factura" placeholder='dd/mm/aaaa' value="<?=$basicos[$indiceFactura][2]?>"/><br>
+            <label>Total de la orden:</label><input type="text" name="granTotal"  value="<?=$basicos[$indiceFactura][1]?>"/>
             
             </div>
-            
+            <div class="left">
+            <h3>Datos adicionales</h3>    
+        
+            <label>Notas:</label> <textarea name="notas"><?=$basicos[$indiceFactura][9]?></textarea>
+            </div>
+            <div class="left">
+                <input type="hidden" name="id_factura" value="<?=$basicos[$indiceFactura][0]?>"/>
+                <img src="/css/img/save.png" height="20" width="20">
+                    <span style="vertical-align:top;">
+                            <input type="submit" class="button" value="Guardar cambios" name='submit'/>
+                    </span>
+                </img>    
+            </div>
             <div class="left">
                 <h3>Datos del cliente</h3>
                         <p><b>Nombre de cliente:</b> <?=$basicos[$indiceFactura][3]?><br>
@@ -80,12 +90,23 @@ include_once 'consulta.inc.php';
                         <b>Telefono:</b> <?=$basicos[$indiceFactura][7]?></p>
             </div>
             
+            
+            
+            <div class="left">
+                <div id='refaccion<?=$indiceFactura?>'></div>
+                <input type='button' value='Agregar Refacci&oacute;n' onclick='agregarAFactura(1,<?=$indiceFactura?>)'/>
+            </div>
+            <div class="left">
+                <div id='servicio<?=$indiceFactura?>'></div>
+                <input type='button' value='Agregar Servicio' onclick='agregarAFactura(2,<?=$indiceFactura?>)'/>
+            </div>
+            </form>
+            
             <div class="left">
             <h3>Datos de la venta</h3>
             <div class="left">
-                
                 <h4>Refacciones</h4>
-                <?php
+            <?php
                     $stmtRefaccion = $mysqli->prepare("SELECT refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario,refaccion_cantidad
                     FROM Refacciones INNER JOIN ".$relacion."_por_refaccion ON refaccion_codigo=refaccion_fkey WHERE ".$nombreCampo."_fkey = ?");
                     $stmtRefaccion->bind_param('i',$basicos[$indiceFactura][0]);
@@ -106,11 +127,7 @@ include_once 'consulta.inc.php';
                     </div>
                 <?php
                     endwhile;?>
-            <div id='refaccion<?=$indiceFactura?>'>
             </div>
-            <input type='button' value='Agregar Refacci&oacute;n' onclick='agregarAFactura(1,<?=$indiceFactura?>)'/>
-            </div>
-            
             <div class="left">
                 <h4>Servicios</h4>
                 <?php
@@ -136,28 +153,11 @@ include_once 'consulta.inc.php';
                 endwhile;
                 
                 ?>
-                <div id='servicio<?=$indiceFactura?>'></div>
-                <input type='button' value='Agregar Servicio' onclick='agregarAFactura(2,<?=$indiceFactura?>)'/>
             </div>
-            
-            
-            </div>
-            
-            <div class="left">
-            <h3>Datos adicionales</h3>    
-        
-            <label>Notas:</label> <textarea name="notas"><?=$basicos[$indiceFactura][9]?></textarea>
-            </div>
-            <div class="left">
-                <input type="hidden" name="id_factura" value="<?=$basicos[$indiceFactura][0]?>"/>
-                <img src="/css/img/save.png" height="20" width="20">
-                    <span style="vertical-align:top;">
-                            <input type="submit" class="button-small" value="Guardar cambios" name='submit'/>
-                    </span>
-                </img>    
             </div>
         </div>
-        </form>
+        
+        
         <?php endfor;
         endif;
         ?>

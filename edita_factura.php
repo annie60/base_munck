@@ -12,7 +12,6 @@ include_once 'consulta.inc.php';
 
 
 ?>
-
 <!DOCTYPE html>
 <html>
     <link rel="stylesheet" href="css/munck.css" type="text/css" />
@@ -62,9 +61,9 @@ include_once 'consulta.inc.php';
             <div class="left">
             
             <h3>Datos basicos</h3>    
-            <label>No. factura:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>" name="no_factura"/>
-            <label>Fecha de la factura:</label><input type="text" name="fecha" placeholder='dd/mm/aaaa' value="<?=$basicos[$indiceFactura][2]?>"/><br>
-            <label>Total de la factura:</label><input type="text" name="granTotal"  value="<?=$basicos[$indiceFactura][1]?>"/><br>
+            <label>No. factura:</label><input type="number" value="<?=$basicos[$indiceFactura][10]?>" name="no_factura"/><br>
+            <label>Fecha de la factura:</label><input type="text" name="fecha_factura" placeholder='dd/mm/aaaa' value="<?=$basicos[$indiceFactura][2]?>"/><br>
+            <label>Total de la factura:</label><input type="text" name="granTotal"  value="<?=$basicos[$indiceFactura][1]?>"/>
             
             </div>
             <div class="left">
@@ -89,12 +88,23 @@ include_once 'consulta.inc.php';
                         <b>Telefono:</b> <?=$basicos[$indiceFactura][7]?></p>
             </div>
             
+            
+            
+            <div class="left">
+                <div id='refaccion<?=$indiceFactura?>'></div>
+                <input type='button' value='Agregar Refacci&oacute;n' onclick='agregarAFactura(1,<?=$indiceFactura?>)'/>
+            </div>
+            <div class="left">
+                <div id='servicio<?=$indiceFactura?>'></div>
+                <input type='button' value='Agregar Servicio' onclick='agregarAFactura(2,<?=$indiceFactura?>)'/>
+            </div>
+            </form>
+            
             <div class="left">
             <h3>Datos de la venta</h3>
             <div class="left">
-                
                 <h4>Refacciones</h4>
-                <?php
+            <?php
                     $stmtRefaccion = $mysqli->prepare("SELECT refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario,refaccion_cantidad
                     FROM Refacciones INNER JOIN ".$relacion."_por_refaccion ON refaccion_codigo=refaccion_fkey WHERE ".$nombreCampo."_fkey = ?");
                     $stmtRefaccion->bind_param('i',$basicos[$indiceFactura][0]);
@@ -115,11 +125,7 @@ include_once 'consulta.inc.php';
                     </div>
                 <?php
                     endwhile;?>
-            <div id='refaccion<?=$indiceFactura?>'>
             </div>
-            <input type='button' value='Agregar Refacci&oacute;n' onclick='agregarAFactura(1,<?=$indiceFactura?>)'/>
-            </div>
-            
             <div class="left">
                 <h4>Servicios</h4>
                 <?php
@@ -145,16 +151,11 @@ include_once 'consulta.inc.php';
                 endwhile;
                 
                 ?>
-                <div id='servicio<?=$indiceFactura?>'></div>
-                <input type='button' value='Agregar Servicio' onclick='agregarAFactura(2,<?=$indiceFactura?>)'/>
             </div>
-            
-            
             </div>
-            
-            
         </div>
-        </form>
+        
+        
         <?php endfor;
         endif;
         ?>
