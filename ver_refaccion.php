@@ -44,7 +44,7 @@ if( !empty($_GET['fecha'])){
         <?php
         global $mysqli;
         $stmtLook=$mysqli->prepare("SELECT refaccion_codigo,refaccion_no_material,refaccion_nombre,
-        SUM(FR.refaccion_cantidad),DATE_FORMAT(factura_fecha,'%d/%m/%Y'),factura_numero
+        SUM(FR.refaccion_cantidad),factura_fecha_facturacion,factura_numero
         FROM Refacciones INNER JOIN Factura_por_refaccion FR ON refaccion_codigo=FR.refaccion_fkey
         INNER JOIN Facturas ON FR.factura_fkey = factura_pkey".$condicion." 
         GROUP BY refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario

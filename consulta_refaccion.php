@@ -73,10 +73,11 @@ if( !empty($_POST['fecha'])){
         <?php
         global $mysqli;
         $stmtLook=$mysqli->prepare("SELECT refaccion_codigo,refaccion_no_material,refaccion_nombre,
-        SUM(FR.refaccion_cantidad),DATE_FORMAT(factura_fecha_facturacion,'%d/%m/%Y'),factura_numero
+        SUM(FR.refaccion_cantidad),factura_fecha_facturacion,factura_numero
         FROM Refacciones INNER JOIN Factura_por_refaccion FR ON refaccion_codigo=FR.refaccion_fkey
-        INNER JOIN Facturas ON FR.factura_fkey = factura_pkey".$condicion." GROUP BY refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario,DATE_FORMAT(factura_fecha_facturacion,'%d/%m/%Y')
-        ORDER BY factura_fecha");
+        INNER JOIN Facturas ON FR.factura_fkey = factura_pkey".$condicion." 
+        GROUP BY factura_numero,refaccion_codigo,refaccion_no_material,refaccion_nombre,refaccion_precio_unitario,DATE_FORMAT(factura_fecha_facturacion,'%d/%m/%Y')
+        ORDER BY factura_numero");
         echo $mysqli->error;
         $stmtLook->bind_result($codigo,$material,$descripcion,$precio,$fecha,$numero_factura);
         $stmtLook->execute();

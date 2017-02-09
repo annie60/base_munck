@@ -22,10 +22,10 @@ include_once '_includes/db_connect.php';
         <?php
         global $mysqli;
         $stmtLook=$mysqli->prepare("SELECT servicio_codigo,servicio_descripcion,
-        SUM(FR.servicio_cantidad),DATE_FORMAT(factura_fecha,'%d/%m/%Y'),factura_numero,FORMAT(factura_total,2)
+        SUM(FR.servicio_cantidad),factura_fecha_facturacion,factura_numero,FORMAT(factura_total,2)
         FROM Servicios INNER JOIN Factura_por_servicio FR ON servicio_codigo=FR.servicio_fkey
         INNER JOIN Facturas ON FR.factura_fkey = factura_pkey
-        GROUP BY servicio_codigo,servicio_descripcion,servicio_precio_unitario,DATE_FORMAT(factura_fecha,'%d/%m/%Y') 
+        GROUP BY factura_numero,servicio_codigo,servicio_descripcion,servicio_precio_unitario,factura_fecha_facturacion
         ORDER BY factura_fecha");
         echo $mysqli->error;
         $stmtLook->bind_result($codigo,$descripcion,$precio,$fecha,$numero,$total);
